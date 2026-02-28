@@ -1,2 +1,1 @@
-# Favó
-A demo version of Favó website 
+![Favo](assets/Favo.png)

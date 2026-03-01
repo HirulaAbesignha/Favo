@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added 
+- IT24610824 `src/app/api/auth/register/route.js` - Initialized with valiidations, passwordHash and email checkers
+
 ---
 
 ## [0.1.0] – Initial Project Setup

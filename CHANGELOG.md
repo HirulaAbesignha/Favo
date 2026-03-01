@@ -7,7 +7,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added 
-- IT24610824 `src/app/api/auth/register/route.js` - Register API Routes with valiidations, passwordHash and email checkers
+- IT24610824 `src/app/api/auth/register/route.js` - Register API Routes with valiidations, passwordHash and email checkers.
+- IT24610824 `src/app/api/auth/login/route.js` - Login Routes with find users, compare and check passwords, an token generation.
 
 ---
 

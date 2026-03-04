@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 ### Added 
 - IT24610824 `src/app/api/auth/register/route.js` - Register API Routes with valiidations, passwordHash and email checkers.
 - IT24610824 `src/app/api/auth/login/route.js` - Login Routes with find users, compare and check passwords, an token generation.
+- IT24610824 `src/app/lib/auth.js` - Added JWT verification for user logins.
+- IT24610824 `src/app/api/auth/test-protected/route.js` - Tested JWT verification API route.
 
 ---
 

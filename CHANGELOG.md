@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - IT24610824 `src/app/lib/auth.js` - Added JWT verification for user logins.
 - IT24610824 `src/app/api/auth/test-protected/route.js` - Tested JWT verification API route.
 - IT24610824 `src/app/payment/simulate/route.js` - Fake card vallidation and transaction ID.
+- IT24610824 `src/app/api/orders/[id]/delivery/route.js` Delivery API route and update delivery method.
 
 ---
 

@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - IT24610824 `src/app/api/orders/[id]/delivery/route.js`- Delivery API route and update delivery method.
 - IT24610824 `src/app/api/orders/[id]/pickup/route.js` - Pickup API route
 - IT24610824 `src/app/api/pickup-locations/route.js` - Get Pickup Locations API, this helps frontend dropdown 
+- IT24610824 - `src/app/api/users/me/route.js` - Implemented users CRUD
 
 ---
 

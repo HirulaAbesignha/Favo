@@ -58,3 +58,82 @@ export async function POST(request, { params }) {
     return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
   }
 }
+
+
+/*
+import { NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { verifyToken } from "@/lib/auth";
+
+export async function GET(request,{params}) {
+
+  const user = verifyToken(request);
+
+  if(!user){
+    return NextResponse.json({error:"Unauthorized"},{status:401});
+  }
+
+  const [rows] = await db.query(
+    "SELECT * FROM addresses WHERE order_id=?",
+    [params.id]
+  );
+
+  return NextResponse.json(rows[0]);
+}
+
+export async function POST(request,{params}) {
+
+  const user = verifyToken(request);
+
+  if(!user){
+    return NextResponse.json({error:"Unauthorized"},{status:401});
+  }
+
+  const body = await request.json();
+
+  await db.query(
+  `INSERT INTO addresses
+  (order_id,address_line1,address_line2,city,postal_code,phone)
+  VALUES(?,?,?,?,?,?)`,
+  [
+    params.id,
+    body.addressLine1,
+    body.addressLine2,
+    body.city,
+    body.postalCode,
+    body.phone
+  ]);
+
+  return NextResponse.json({message:"Address added"});
+}
+
+export async function PUT(request,{params}) {
+
+  const body = await request.json();
+
+  await db.query(
+  `UPDATE addresses
+   SET address_line1=?,address_line2=?,city=?,postal_code=?,phone=?
+   WHERE order_id=?`,
+   [
+    body.addressLine1,
+    body.addressLine2,
+    body.city,
+    body.postalCode,
+    body.phone,
+    params.id
+   ]);
+
+   return NextResponse.json({message:"Address updated"});
+}
+
+export async function DELETE(request,{params}){
+
+  await db.query(
+  "DELETE FROM addresses WHERE order_id=?",
+  [params.id]
+  );
+
+  return NextResponse.json({message:"Address removed"});
+}
+*/

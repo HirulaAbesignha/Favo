@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - IT24610824 - `src/app/api/admin/pickup-locations/route.js` - Updated API errors.
 - IT24610824 - `src/app/api/payments/[id]/route.js` - Fixed Payment PUT function errors.
+- IT24610824 - `src/app/api/orders/[id]/payments/route.js` Fixed `params.id` is not being read properly
 
 ## [0.1.0] – Initial Project Setup
 

@@ -20,8 +20,12 @@ All notable changes to this project will be documented in this file.
 - IT24610824 - `src/app/api/admin/pickup-locations/route.js` - Added create function to pickup location.
 - IT24610824 - `src/app/api/orders/[id]/payments/route.js` - Added read function to payment.
 - IT24610824 - `src/app/api/payments/[id]/route.js` -  Added update and create function to payment.
-- IT24610824 - `src/app/api/admin/pickup-locations/route.js` - 
+
 ---
+
+### Fixed
+- IT24610824 - `src/app/api/admin/pickup-locations/route.js` - Updated API errors.
+- IT24610824 - `src/app/api/payments/[id]/route.js` - Fixed Payment PUT function errors.
 
 ## [0.1.0] – Initial Project Setup
 

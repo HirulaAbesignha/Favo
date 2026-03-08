@@ -12,3 +12,13 @@ export async function GET() {
     return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
   }
 }
+
+export async function POST(request){
+  const body = await request.json();
+  await db.query(
+  "INSERT INTO pickup_locations(name,address,phone) VALUES(?,?,?)",
+  [body.name,body.address,body.phone]
+  );
+ 
+  return NextResponse.json({message:"Pickup location created"});
+ }

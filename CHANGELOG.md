@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file.
 - IT24610824 - `src/app/api/users/me/route.js` - Implemented users CRUD
 - IT24610824 - `src/app/api/admin/pickup-locations/[id]/route.js` - Implemented del and put fucntions on pickup.
 - IT24610824 - `src/app/api/admin/pickup-locations/route.js` - Added create function to pickup location.
-
+- IT24610824 - `src/app/api/orders/[id]/payments/route.js` - Added read function to payment.
 ---
 
 ## [0.1.0] – Initial Project Setup

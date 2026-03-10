@@ -4,12 +4,19 @@ import { db } from "@/lib/db";
 export async function GET() {
   try {
     const [rows] = await db.query(
-      "SELECT id, name, address, phone FROM pickup_locations ORDER BY id ASC"
+      "SELECT * FROM pickup_locations ORDER BY id DESC"
     );
-    return NextResponse.json({ ok: true, data: rows });
-  } catch (err) {
-    console.error("PICKUP_LOCATIONS_ERROR:", err);
-    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
+
+    return NextResponse.json({
+      ok: true,
+      data: rows
+    });
+  } catch (error) {
+    console.error("GET PICKUP LOCATIONS ERROR:", error);
+    return NextResponse.json(
+      { ok: false, error: "Server error" },
+      { status: 500 }
+    );
   }
 }
 

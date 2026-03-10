@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file.
 - IT24610824 - `src/app/api/payments/[id]/route.js` -  Added update and create function to payment.
 - IT24610824 - `src/app/api/admin/customers/route.js` - To fetch all customers for the dashboard.
 - IT24610824 - `src/app/api/admin/payments/route.js` - To fetch all payments for the dashboard.
-
+- IT24610824 - `src/app/api/admin/addresses/route.js` - To fetch all addresses for the dashboard.
 ---
 
 ### Fixed

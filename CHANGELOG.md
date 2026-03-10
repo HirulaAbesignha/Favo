@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file.
 - IT24610824 - `src/app/api/admin/pickup-locations/route.js` - Added create function to pickup location.
 - IT24610824 - `src/app/api/orders/[id]/payments/route.js` - Added read function to payment.
 - IT24610824 - `src/app/api/payments/[id]/route.js` -  Added update and create function to payment.
+- IT24610824 - `src/app/api/admin/customers/route.js` - To fetch all customers for the dashboard.
 
 ---
 

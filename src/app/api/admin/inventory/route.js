@@ -59,6 +59,21 @@ export async function POST(request) {
     );
   } catch (error) {
     console.error("CREATE INVENTORY ERROR:", error);
-    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500, headers: corsHeaders });
+    let errorMessage = error.message || "Server error";
+    
+    // Handle MySQL specific errors
+    if (error.code === 'ER_DUP_ENTRY') {
+      if (errorMessage.includes('inventory.product_id') || errorMessage.includes('inventory_product_id')) {
+        errorMessage = "Inventory record for this product already exists.";
+      } else if (errorMessage.includes('inventory.sku') || errorMessage.includes('inventory_sku')) {
+        errorMessage = "An inventory record with this SKU already exists.";
+      } else {
+        errorMessage = "Record already exists.";
+      }
+    } else if (error.code === 'ER_NO_REFERENCED_ROW_2' || errorMessage.includes('foreign key constraint fails')) {
+      errorMessage = "Invalid Product ID. Please ensure the product exists.";
+    }
+
+    return NextResponse.json({ ok: false, error: errorMessage }, { status: 400, headers: corsHeaders });
   }
 }

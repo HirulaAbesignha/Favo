@@ -24,7 +24,7 @@ export async function POST(req) {
 
     // Find user
     const [rows] = await db.query(
-      "SELECT id, email, password_hash, role FROM users WHERE email = ? LIMIT 1",
+      "SELECT id, email, password_hash, role, is_blocked FROM users WHERE email = ? LIMIT 1",
       [email]
     );
 
@@ -37,6 +37,13 @@ export async function POST(req) {
 
     // Compare password
     const user = rows[0];
+
+    if (user.is_blocked) {
+      return NextResponse.json(
+        { ok: false, error: "Account disabled." },
+        { status: 403 }
+      );
+    }
 
     // Check password
     const match = await bcrypt.compare(password, user.password_hash);

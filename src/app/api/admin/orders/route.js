@@ -42,7 +42,7 @@ export async function POST(request) {
     }
     
     const body = await request.json();
-    const { user_id, status, items } = body;
+    const { user_id, status, items, delivery_method, fulfillment_type, delivery_address_id, pickup_location_id } = body;
     
     if (!user_id || !items || !items.length) {
        return NextResponse.json({ ok: false, error: "Missing required fields or items" }, { status: 400, headers: corsHeaders });
@@ -56,8 +56,8 @@ export async function POST(request) {
 
     // Insert order
     const [orderResult] = await db.query(
-      "INSERT INTO orders (user_id, status, total_amount) VALUES (?, ?, ?)",
-      [user_id, status || 'PENDING_PAYMENT', total_amount]
+      "INSERT INTO orders (user_id, status, delivery_method, fulfillment_type, delivery_address_id, pickup_location_id, total_amount) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [user_id, status || 'PENDING_PAYMENT', delivery_method || null, fulfillment_type || delivery_method || null, delivery_address_id || null, pickup_location_id || null, total_amount]
     );
 
     const order_id = orderResult.insertId;

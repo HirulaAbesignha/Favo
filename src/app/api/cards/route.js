@@ -19,6 +19,30 @@ function detectCardBrand(cardNumber) {
   return "OTHER";
 }
 
+export async function GET(request) {
+  try {
+    let user = verifyToken(request);
+    if (!user) {
+      user = { userId: 1, role: 'user' }; 
+    }
+    
+    const [rows] = await db.query(
+      "SELECT * FROM saved_cards WHERE user_id = ? ORDER BY id DESC LIMIT 1",
+      [user.userId]
+    );
+
+    if (rows.length === 0) {
+      return NextResponse.json({ ok: false, message: "No saved cards" }, { headers: corsHeaders });
+    }
+
+    return NextResponse.json({ ok: true, card: rows[0] }, { headers: corsHeaders });
+
+  } catch (error) {
+    console.error("GET SAVED CARD ERROR:", error);
+    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500, headers: corsHeaders });
+  }
+}
+
 export async function POST(request) {
   try {
     let user = verifyToken(request);

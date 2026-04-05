@@ -26,7 +26,7 @@ export async function PUT(request, { params }) {
 
     await db.query(
       "UPDATE inventory SET sku = ?, stock_quantity = ?, low_stock_threshold = ? WHERE id = ?",
-      [sku, stock_quantity, low_stock_threshold, id]
+      [sku || null, stock_quantity, low_stock_threshold, id]
     );
 
     return NextResponse.json({ ok: true, message: "Inventory updated" }, { headers: corsHeaders });

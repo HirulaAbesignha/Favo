@@ -19,11 +19,29 @@ export async function GET(request) {
       return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401, headers: corsHeaders });
     }
     
-    const [rows] = await db.query("SELECT id, name, gender, category FROM categories ORDER BY gender ASC, category ASC, name ASC");
+    // Fetch orders with user name and address payload
+    const [rows] = await db.query(`
+      SELECT o.id, o.user_id, o.status, o.total_amount, o.created_at, o.fulfillment_type, o.delivery_status, o.delivery_address_id,
+             u.name as customer_name, 
+             u.email as customer_email,
+             ca.full_name as delivery_name, 
+             ca.phone_number as delivery_phone, 
+             ca.street_address, 
+             ca.city, 
+             ca.district, 
+             ca.province, 
+             ca.postal_code, 
+             ca.address_label
+      FROM orders o 
+      LEFT JOIN users u ON o.user_id = u.id
+      LEFT JOIN customer_addresses ca ON o.delivery_address_id = ca.id
+      WHERE o.fulfillment_type = 'DELIVERY'
+      ORDER BY o.created_at DESC
+    `);
     
     return NextResponse.json({ ok: true, data: rows }, { headers: corsHeaders });
   } catch (error) {
-    console.error("GET CATEGORIES ERROR:", error);
+    console.error("GET DELIVERY ORDERS ERROR:", error);
     return NextResponse.json({ ok: false, error: "Server error" }, { status: 500, headers: corsHeaders });
   }
 }

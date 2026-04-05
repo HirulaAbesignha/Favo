@@ -22,18 +22,64 @@ export async function PUT(request, { params }) {
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id, 10);
     const body = await request.json();
-    const { name, description, price, category_id, is_active, collection } = body;
+    const { name, description, price, category_id, is_active, collection, sizes, images, is_featured, is_visible, promotional_label } = body;
 
     if (!name || price === undefined) {
       return NextResponse.json({ ok: false, error: "Name and Price are required" }, { status: 400, headers: corsHeaders });
     }
 
-    await db.query(
-      "UPDATE products SET name = ?, description = ?, price = ?, category_id = ?, is_active = ?, collection = ? WHERE id = ?",
-      [name, description || null, parseFloat(price), category_id || null, is_active !== undefined ? is_active : 1, collection || 'CORE COLLECTION', id]
-    );
+    const connection = await db.getConnection();
+    try {
+      await connection.beginTransaction();
 
-    return NextResponse.json({ ok: true, message: "Product updated" }, { headers: corsHeaders });
+      await connection.query(
+        "UPDATE products SET name = ?, description = ?, price = ?, category_id = ?, is_active = ?, collection = ?, sizes = ?, is_featured = ?, is_visible = ?, promotional_label = ? WHERE id = ?",
+        [name, description || null, parseFloat(price), category_id || null, is_active !== undefined ? is_active : 1, collection || 'CORE COLLECTION', sizes ? JSON.stringify(sizes) : null, is_featured ? 1 : 0, is_visible !== undefined ? is_visible : 1, promotional_label || null, id]
+      );
+
+      if (images && Array.isArray(images)) {
+        await connection.query("DELETE FROM product_images WHERE product_id = ?", [id]);
+        const validImages = images.filter(img => img && img.trim() !== '');
+        for (let i = 0; i < validImages.length; i++) {
+          await connection.query(
+            "INSERT INTO product_images (product_id, image_url, sort_order) VALUES (?, ?, ?)",
+            [id, validImages[i].trim(), i]
+          );
+        }
+      }
+
+      if (sizes && Array.isArray(sizes)) {
+        const [existingInventory] = await connection.query(
+            "SELECT size FROM inventory WHERE product_id = ?",
+            [id]
+        );
+        const existingSizes = existingInventory.map(row => row.size);
+        
+        const sizesToAdd = sizes.filter(size => !existingSizes.includes(size.trim()));
+        for (const size of sizesToAdd) {
+          await connection.query(
+            "INSERT INTO inventory (product_id, sku, stock_quantity, low_stock_threshold, size) VALUES (?, ?, ?, ?, ?)",
+            [id, null, 0, 10, size.trim()]
+          );
+        }
+        
+        const sizesToRemove = existingSizes.filter(size => !sizes.includes(size));
+        if (sizesToRemove.length > 0) {
+           await connection.query(
+               "DELETE FROM inventory WHERE product_id = ? AND size IN (?)",
+               [id, sizesToRemove]
+           );
+        }
+      }
+
+      await connection.commit();
+      return NextResponse.json({ ok: true, message: "Product updated successfully" }, { headers: corsHeaders });
+    } catch (e) {
+      await connection.rollback();
+      throw e;
+    } finally {
+      connection.release();
+    }
   } catch (error) {
     console.error("UPDATE PRODUCT ERROR:", error);
     return NextResponse.json({ ok: false, error: error.message || "Server error" }, { status: 500, headers: corsHeaders });

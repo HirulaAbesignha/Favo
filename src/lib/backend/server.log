@@ -1,0 +1,61 @@
+Server running on port 5000
+Error: Data truncated for column 'delivery_method' at row 1
+    at PromisePool.query (/Users/krishan/Desktop/Favo/src/lib/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at /Users/krishan/Desktop/Favo/src/lib/backend/server.js:129:42
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'WARN_DATA_TRUNCATED',
+  errno: 1265,
+  sql: "INSERT INTO orders (user_id, delivery_method, status, total_amount) VALUES (1, 'EXPRESS', 'PENDING_PAYMENT', 1800)",
+  sqlState: '01000',
+  sqlMessage: "Data truncated for column 'delivery_method' at row 1"
+}
+Error: Data truncated for column 'delivery_method' at row 1
+    at PromisePool.query (/Users/krishan/Desktop/Favo/src/lib/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at /Users/krishan/Desktop/Favo/src/lib/backend/server.js:129:42
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'WARN_DATA_TRUNCATED',
+  errno: 1265,
+  sql: "INSERT INTO orders (user_id, delivery_method, status, total_amount) VALUES (1, 'EXPRESS', 'PENDING_PAYMENT', 750)",
+  sqlState: '01000',
+  sqlMessage: "Data truncated for column 'delivery_method' at row 1"
+}
+Error: Data truncated for column 'delivery_method' at row 1
+    at PromisePool.query (/Users/krishan/Desktop/Favo/src/lib/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at /Users/krishan/Desktop/Favo/src/lib/backend/server.js:129:42
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'WARN_DATA_TRUNCATED',
+  errno: 1265,
+  sql: "INSERT INTO orders (user_id, delivery_method, status, total_amount) VALUES (1, 'EXPRESS', 'PENDING_PAYMENT', 750)",
+  sqlState: '01000',
+  sqlMessage: "Data truncated for column 'delivery_method' at row 1"
+}
+Error: Data truncated for column 'delivery_method' at row 1
+    at PromisePool.query (/Users/krishan/Desktop/Favo/src/lib/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at /Users/krishan/Desktop/Favo/src/lib/backend/server.js:129:42
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'WARN_DATA_TRUNCATED',
+  errno: 1265,
+  sql: "INSERT INTO orders (user_id, delivery_method, status, total_amount) VALUES (1, 'EXPRESS', 'PENDING_PAYMENT', 750)",
+  sqlState: '01000',
+  sqlMessage: "Data truncated for column 'delivery_method' at row 1"
+}
+Error: Data truncated for column 'delivery_method' at row 1
+    at PromisePool.query (/Users/krishan/Desktop/Favo/src/lib/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at /Users/krishan/Desktop/Favo/src/lib/backend/server.js:129:42
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'WARN_DATA_TRUNCATED',
+  errno: 1265,
+  sql: "INSERT INTO orders (user_id, delivery_method, status, total_amount) VALUES (1, 'EXPRESS', 'PENDING_PAYMENT', 750)",
+  sqlState: '01000',
+  sqlMessage: "Data truncated for column 'delivery_method' at row 1"
+}
+Error: Data truncated for column 'delivery_method' at row 1
+    at PromisePool.query (/Users/krishan/Desktop/Favo/src/lib/backend/node_modules/mysql2/lib/promise/pool.js:36:22)
+    at /Users/krishan/Desktop/Favo/src/lib/backend/server.js:129:42
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'WARN_DATA_TRUNCATED',
+  errno: 1265,
+  sql: "INSERT INTO orders (user_id, delivery_method, status, total_amount) VALUES (1, 'EXPRESS', 'PENDING_PAYMENT', 750)",
+  sqlState: '01000',
+  sqlMessage: "Data truncated for column 'delivery_method' at row 1"
+}

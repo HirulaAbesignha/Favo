@@ -1,0 +1,101 @@
+
+> favo@0.1.0 dev
+> next dev --webpack --hostname 127.0.0.1
+
+▲ Next.js 16.1.6 (webpack)
+- Local:         http://127.0.0.1:3000
+- Network:       http://127.0.0.1:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 8.9s
+○ Compiling / ...
+ GET / 200 in 3.8s (compile: 3.5s, render: 316ms)
+ GET / 200 in 73ms (compile: 11ms, render: 62ms)
+ GET / 200 in 100ms (compile: 15ms, render: 85ms)
+ GET /api/auth/me 401 in 3.3s (compile: 3.3s, render: 36ms)
+ GET / 200 in 305ms (compile: 101ms, render: 203ms)
+ GET / 200 in 42ms (compile: 6ms, render: 36ms)
+ GET /auth/login 200 in 1887ms (compile: 1642ms, proxy.ts: 161ms, render: 85ms)
+=== LOGIN ATTEMPT ===
+Email: admin@glideway.com
+Password length: 11
+Checking database connection...
+Querying database for user: admin@glideway.com
+Users found: 0
+ POST /api/auth/login 401 in 1391ms (compile: 1113ms, render: 278ms)
+=== LOGIN ATTEMPT ===
+Email: admin@glideway.com
+Password length: 12
+Checking database connection...
+Querying database for user: admin@glideway.com
+Users found: 0
+ POST /api/auth/login 401 in 42ms (compile: 9ms, render: 33ms)
+=== LOGIN ATTEMPT ===
+Email: admin@glideway.com
+Password length: 10
+Checking database connection...
+Querying database for user: admin@glideway.com
+Users found: 0
+ POST /api/auth/login 401 in 32ms (compile: 4ms, render: 28ms)
+○ Compiling /auth/register ...
+ GET /auth/register 200 in 4.0s (compile: 3.8s, proxy.ts: 52ms, render: 112ms)
+ GET /auth/register 200 in 54ms (compile: 8ms, proxy.ts: 20ms, render: 26ms)
+ GET /auth/register 200 in 94ms (compile: 17ms, proxy.ts: 25ms, render: 52ms)
+ GET /api/auth/me 401 in 1378ms (compile: 1349ms, render: 28ms)
+=== LOGIN ATTEMPT ===
+Email: admin@favo.local
+Password length: 11
+Checking database connection...
+Querying database for user: admin@favo.local
+Users found: 1
+User found, verifying password...
+Password valid: true
+Generating JWT token...
+Token generated successfully
+Setting auth cookie...
+=== LOGIN SUCCESSFUL ===
+ POST /api/auth/login 200 in 1171ms (compile: 979ms, render: 192ms)
+=== LOGIN ATTEMPT ===
+Email: admin@favo.local
+Password length: 11
+Checking database connection...
+Querying database for user: admin@favo.local
+Users found: 1
+User found, verifying password...
+Password valid: true
+Generating JWT token...
+Token generated successfully
+Setting auth cookie...
+=== LOGIN SUCCESSFUL ===
+ POST /api/auth/login 200 in 218ms (compile: 10ms, render: 209ms)
+○ Compiling /admin ...
+ GET /admin 200 in 4.8s (compile: 4.7s, proxy.ts: 36ms, render: 91ms)
+ GET /api/auth/me 200 in 990ms (compile: 964ms, render: 26ms)
+ GET /api/auth/me 200 in 24ms (compile: 14ms, render: 10ms)
+○ Compiling /api/categories ...
+ GET /api/categories 200 in 5.8s (compile: 5.7s, render: 77ms)
+ GET /api/categories 200 in 1822ms (compile: 1776ms, render: 46ms)
+ GET /api/admin/products 200 in 7.7s (compile: 1809ms, proxy.ts: 5.7s, render: 111ms)
+ GET /api/admin/products 200 in 30ms (compile: 4ms, proxy.ts: 12ms, render: 14ms)
+ PATCH /api/admin/products/4 200 in 2.1s (compile: 1977ms, proxy.ts: 25ms, render: 53ms)
+ GET /api/auth/me 200 in 815ms (compile: 798ms, render: 17ms)
+ GET /api/categories 200 in 1261ms (compile: 1244ms, render: 16ms)
+ GET /api/admin/products 200 in 2.4s (compile: 1061ms, proxy.ts: 1267ms, render: 37ms)
+○ Compiling /products ...
+ GET /products 200 in 3.6s (compile: 3.5s, proxy.ts: 14ms, render: 105ms)
+ GET /api/auth/me 200 in 121ms (compile: 111ms, render: 10ms)
+ GET /api/auth/me 200 in 13ms (compile: 5ms, render: 7ms)
+ GET /api/categories 200 in 41ms (compile: 28ms, render: 13ms)
+ GET /api/categories 200 in 14ms (compile: 7ms, render: 7ms)
+ GET /api/cart 200 in 972ms (compile: 906ms, proxy.ts: 31ms, render: 34ms)
+ GET /api/cart 200 in 1526ms (compile: 42ms, proxy.ts: 1466ms, render: 18ms)
+ GET /api/products 200 in 1533ms (compile: 1470ms, render: 63ms)
+ GET /api/products 200 in 15ms (compile: 4ms, render: 11ms)
+ GET /products/1 200 in 4.1s (compile: 3.9s, proxy.ts: 24ms, render: 144ms)
+ GET /api/auth/me 200 in 1566ms (compile: 1534ms, render: 31ms)
+ GET /api/auth/me 200 in 30ms (compile: 18ms, render: 12ms)
+ GET /api/products/1 200 in 4.3s (compile: 4.0s, render: 283ms)
+ GET /api/products/1 200 in 1630ms (compile: 1596ms, render: 35ms)
+ GET /api/cart 200 in 6.1s (compile: 3.0s, proxy.ts: 3.0s, render: 111ms)
+ GET /api/cart 200 in 57ms (compile: 5ms, proxy.ts: 23ms, render: 28ms)

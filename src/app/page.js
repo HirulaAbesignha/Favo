@@ -1,65 +1,123 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+const highlights = [
+  {
+    title: 'Curated wardrobe drops',
+    text: 'Sharper silhouettes, elevated essentials, and premium statement pieces presented with a more polished edge.',
+  },
+  {
+    title: 'Confident product discovery',
+    text: 'Browse by category, review stock by size, and move through the store with a cleaner buying flow.',
+  },
+  {
+    title: 'Refined dark presentation',
+    text: 'A black editorial palette gives every page a cleaner, more professional luxury feel.',
+  },
+];
 
 export default function Home() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const response = await fetch('/api/auth/me');
+        const data = await response.json();
+
+        if (response.ok && data.ok) {
+          router.push(data.data.user.role === 'admin' ? '/admin' : '/products');
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+        setIsAuthenticated(false);
+      }
+    }
+
+    checkAuth();
+  }, [router]);
+
+  if (isAuthenticated === null) {
+    return (
+      <div className="app-shell flex min-h-screen items-center justify-center px-6">
+        <div className="glass-panel rounded-[2rem] px-10 py-8 text-center">
+          <p className="eyebrow mx-auto mb-4">FAVO</p>
+          <h1 className="section-title text-3xl font-semibold">Preparing your storefront</h1>
+          <p className="mt-3 text-[color:var(--primary)]">Checking your session and loading the experience.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="app-shell">
+      <div className="page-wrap mx-auto flex min-h-screen max-w-7xl items-center px-6 py-16 lg:px-10">
+        <div className="grid w-full gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+          <section className="glass-panel overflow-hidden rounded-[2rem] p-8 sm:p-12">
+            <div className="eyebrow mb-6">Black Signature Theme</div>
+            <h1 className="section-title max-w-3xl text-5xl font-semibold leading-tight sm:text-6xl">
+              FAVO makes modern fashion feel sharper, cleaner, and more premium.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72">
+              Discover a darker luxury storefront, controlled contrast, and a shopping flow designed to feel composed from
+              the first click to the final product view.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link href="/auth/login" className="primary-btn px-8 py-4 text-base font-semibold">
+                Sign In
+              </Link>
+              <Link href="/auth/register" className="secondary-btn px-8 py-4 text-base font-semibold">
+                Create Account
+              </Link>
+            </div>
+
+            <div className="mt-12 grid gap-4 md:grid-cols-3">
+              {highlights.map((item) => (
+                <div key={item.title} className="card-panel rounded-[1.5rem] p-5">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--accent)]">Feature</p>
+                  <h2 className="section-title mt-3 text-2xl font-semibold">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[color:var(--primary)]">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <aside className="space-y-6">
+            <div className="card-panel rounded-[2rem] p-8">
+              <p className="eyebrow mb-4">Storefront Vision</p>
+              <h2 className="section-title text-3xl font-semibold">Professional by default</h2>
+              <p className="mt-4 text-sm leading-7 text-white/70">
+                The updated interface leans into black, graphite, soft ivory, and restrained gold accents to create a
+                stronger luxury feel without losing clarity.
+              </p>
+            </div>
+
+            <div className="subtle-grid card-panel rounded-[2rem] p-8">
+              <div className="space-y-5">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--accent)]">Palette</p>
+                  <p className="mt-2 text-xl font-semibold text-[color:var(--primary-strong)]">Black, graphite, ivory, gold</p>
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--accent)]">Typography</p>
+                  <p className="mt-2 text-xl font-semibold text-[color:var(--primary-strong)]">Classic display with crisp body copy</p>
+                </div>
+                <div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--accent)]">Mood</p>
+                  <p className="mt-2 text-xl font-semibold text-[color:var(--primary-strong)]">Dark, composed, and intentionally premium</p>
+                </div>
+              </div>
+            </div>
+          </aside>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }

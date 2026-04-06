@@ -1,0 +1,12 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1400" rx="48" fill="#EEE0D4"/>
+  <rect x="136" y="108" width="928" height="1184" rx="52" fill="#FBF4EE"/>
+  <circle cx="290" cy="276" r="172" fill="#D8C3B0"/>
+  <path d="M448 278H752L786 632L702 1098H582L600 663H564L579 1098H498L414 632L448 278Z" fill="#322B2B" stroke="#5F5656" stroke-width="18"/>
+  <path d="M448 278L541 365H659L752 278" stroke="#7D7272" stroke-width="16" stroke-linecap="round"/>
+  <path d="M501 616L567 595" stroke="#B9ABA0" stroke-width="10" stroke-linecap="round"/>
+  <path d="M641 747L709 728" stroke="#B9ABA0" stroke-width="10" stroke-linecap="round"/>
+  <path d="M520 642H572" stroke="#E8D9CC" stroke-width="10" stroke-linecap="round"/>
+  <path d="M656 772H714" stroke="#E8D9CC" stroke-width="10" stroke-linecap="round"/>
+  <text x="600" y="1175" text-anchor="middle" fill="#6C4F3A" font-family="Georgia, serif" font-size="56" font-weight="700">Distressed Black Jeans</text>
+</svg>

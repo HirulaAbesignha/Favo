@@ -1,0 +1,10 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1400" rx="48" fill="#EFE2D7"/>
+  <rect x="136" y="102" width="928" height="1196" rx="56" fill="#FCF5EF"/>
+  <circle cx="284" cy="1117" r="210" fill="#E2CEBC"/>
+  <path d="M531 250H669L723 447L816 1027H384L477 447L531 250Z" fill="#2A2324" stroke="#645B5C" stroke-width="18"/>
+  <path d="M534 250C550 306 650 306 666 250" stroke="#A49596" stroke-width="18" stroke-linecap="round"/>
+  <path d="M600 445L557 561H643L600 445Z" fill="#40373A"/>
+  <path d="M495 717H705" stroke="#52484B" stroke-width="12" stroke-linecap="round"/>
+  <text x="600" y="1175" text-anchor="middle" fill="#6C4F3A" font-family="Georgia, serif" font-size="56" font-weight="700">Little Black Dress</text>
+</svg>

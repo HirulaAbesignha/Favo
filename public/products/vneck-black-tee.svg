@@ -1,0 +1,9 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1400" rx="48" fill="#E9DDD2"/>
+  <rect x="151" y="106" width="898" height="1188" rx="54" fill="#FBF4EE"/>
+  <circle cx="266" cy="247" r="162" fill="#D7C2B0"/>
+  <path d="M442 329L520 250H680L758 329L863 410L783 545L705 494V1020H495V494L417 545L337 410L442 329Z" fill="#3A2A24" stroke="#6D564A" stroke-width="18"/>
+  <path d="M524 252L600 356L676 252" stroke="#DCC8B7" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M495 621H705" stroke="#514038" stroke-width="14" stroke-linecap="round"/>
+  <text x="600" y="1175" text-anchor="middle" fill="#6A4B38" font-family="Georgia, serif" font-size="56" font-weight="700">V-Neck Black Tee</text>
+</svg>

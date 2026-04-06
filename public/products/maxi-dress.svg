@@ -1,0 +1,11 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1400" rx="48" fill="#F6EBE1"/>
+  <rect x="120" y="96" width="960" height="1208" rx="58" fill="#FFF8F3"/>
+  <circle cx="917" cy="234" r="182" fill="#E7D3C3"/>
+  <path d="M532 243H668L732 462L857 1077H343L468 462L532 243Z" fill="#BA876A" stroke="#8D5F43" stroke-width="18"/>
+  <path d="M535 243C553 301 647 301 665 243" stroke="#8D5F43" stroke-width="18" stroke-linecap="round"/>
+  <path d="M600 439L548 575H652L600 439Z" fill="#F7EBDD"/>
+  <path d="M449 716C509 686 687 686 748 716" stroke="#DDB798" stroke-width="12" stroke-linecap="round"/>
+  <path d="M418 851C491 820 708 820 784 851" stroke="#DDB798" stroke-width="12" stroke-linecap="round"/>
+  <text x="600" y="1175" text-anchor="middle" fill="#7A5639" font-family="Georgia, serif" font-size="56" font-weight="700">Maxi Dress</text>
+</svg>

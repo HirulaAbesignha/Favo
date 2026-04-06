@@ -1,0 +1,11 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1400" rx="48" fill="#F4E5D7"/>
+  <rect x="119" y="104" width="962" height="1192" rx="56" fill="#FFF8F1"/>
+  <circle cx="936" cy="297" r="170" fill="#D9BEA6"/>
+  <path d="M434 329L523 250H677L766 329L875 410L789 553L705 503V1027H495V503L411 553L325 410L434 329Z" fill="#CDA98A" stroke="#9C6D49" stroke-width="18"/>
+  <path d="M523 250C545 294 655 294 677 250" stroke="#9C6D49" stroke-width="18" stroke-linecap="round"/>
+  <rect x="490" y="577" width="220" height="184" rx="24" fill="#FFF4EA"/>
+  <circle cx="600" cy="638" r="46" fill="#8B5E3C"/>
+  <path d="M546 713C576 672 624 672 654 713" stroke="#8B5E3C" stroke-width="18" stroke-linecap="round"/>
+  <text x="600" y="1175" text-anchor="middle" fill="#7A5639" font-family="Georgia, serif" font-size="56" font-weight="700">Graphic Print Tee</text>
+</svg>

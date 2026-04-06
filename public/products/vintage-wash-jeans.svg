@@ -1,0 +1,10 @@
+<svg width="1200" height="1400" viewBox="0 0 1200 1400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1400" rx="48" fill="#F4E8DC"/>
+  <rect x="122" y="104" width="956" height="1192" rx="58" fill="#FFF8F2"/>
+  <circle cx="935" cy="1094" r="188" fill="#E8D3BE"/>
+  <path d="M448 278H752L786 632L702 1098H582L600 663H564L579 1098H498L414 632L448 278Z" fill="#7F97AE" stroke="#55697C" stroke-width="18"/>
+  <path d="M448 278L541 365H659L752 278" stroke="#A5B7C6" stroke-width="16" stroke-linecap="round"/>
+  <path d="M514 580C548 548 597 565 612 610" stroke="#C7D2DC" stroke-width="14" stroke-linecap="round"/>
+  <path d="M614 749C652 714 702 733 714 781" stroke="#C7D2DC" stroke-width="14" stroke-linecap="round"/>
+  <text x="600" y="1175" text-anchor="middle" fill="#6C4F3A" font-family="Georgia, serif" font-size="56" font-weight="700">Vintage Wash Jeans</text>
+</svg>

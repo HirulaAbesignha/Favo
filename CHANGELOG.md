@@ -40,6 +40,29 @@ All notable changes to this project will be documented in this file.
 - IT24101084 - src/app/dashboard/products/page.js - Integrated frontend admin panel with backend product APIs.
 - IT24101084 - src/app/dashboard/products/page.js - Added product form handling for product details, sizes, pricing, and images.
 - IT24101084 - src/app/dashboard/products/page.js - Added product listing interface for easier inventory and product management in admin dashboard.
+
+IT24103208 src/app/api/cart/route.js - Added cart API with create, read, update, and delete functionality for managing user cart items.
+IT24103208 src/app/api/cart/[id]/route.js - Added API for updating and removing individual cart items.
+IT24103208 src/app/(storefront)/cart/page.js - Added cart page UI for displaying selected products, quantities, and total price.
+IT24103208 src/components/CartItem.jsx - Created reusable cart item component with quantity update and remove functionality.
+IT24103208 src/app/api/cart/route.js - Implemented logic to calculate cart totals dynamically based on product price and quantity.
+IT24103208 src/app/api/cart/route.js - Added validation to ensure valid product IDs and quantities before adding to cart.
+IT24103208 src/app/api/cart/route.js - Implemented user-based cart storage linked to authenticated users.
+
+IT24103208 src/app/api/orders/route.js - Added order creation API handling checkout process and order insertion.
+IT24103208 src/app/api/orders/[id]/route.js - Added API to fetch individual order details.
+IT24103208 src/app/api/admin/orders/route.js - Added admin API to fetch all orders for dashboard management.
+IT24103208 src/app/api/orders/route.js - Implemented logic to convert cart items into order records and store them in order_items table.
+IT24103208 src/app/api/orders/route.js - Added unique order reference generation (FAVO-YYYYMM-XXXXX format).
+IT24103208 src/app/api/orders/route.js - Integrated inventory validation to ensure stock availability before order placement.
+IT24103208 src/app/api/orders/route.js - Implemented automatic stock deduction after successful order placement.
+IT24103208 src/app/api/orders/route.js - Added fulfillment validation to require delivery_address_id or pickup_location_id based on selection.
+IT24103208 src/app/api/orders/route.js - Implemented order status tracking for order lifecycle management.
+
+IT24103208 src/app/(storefront)/checkout/page.js - Added checkout page UI integrating cart, address selection, and order placement.
+IT24103208 src/components/OrderSummary.jsx - Created order summary component displaying cart items, totals, and selected fulfillment details.
+IT24103208 src/app/(storefront)/orders/page.js - Added user order history page for viewing previous orders.
+IT24103208 src/app/(storefront)/orders/[id]/page.js - Added order details page showing items, status, and fulfillment information.
 ---
 
 ### Fixed

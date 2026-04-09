@@ -73,10 +73,10 @@ export async function POST(request) {
       }
 
       // 2. Insert into orders
-      // For mock payment, we assume PAYMENT IS SUCCESSFUL before calling this endpoint
+      const finalStatus = body.status || 'PENDING_PAYMENT';
       const [orderResult] = await connection.query(
-        "INSERT INTO orders (user_id, delivery_method, fulfillment_type, delivery_address_id, pickup_location_id, delivery_status, status, total_amount) VALUES (?, ?, ?, ?, ?, 'Pending', 'PAID', ?)",
-        [user.id || user.userId, delivery_method, delivery_method, delivery_method === 'DELIVERY' ? delivery_address_id : null, delivery_method === 'PICKUP' ? pickup_location_id : null, total_amount]
+        "INSERT INTO orders (user_id, delivery_method, fulfillment_type, delivery_address_id, pickup_location_id, delivery_status, status, total_amount) VALUES (?, ?, ?, ?, ?, 'Pending', ?, ?)",
+        [user.id || user.userId, delivery_method, delivery_method, delivery_method === 'DELIVERY' ? delivery_address_id : null, delivery_method === 'PICKUP' ? pickup_location_id : null, finalStatus, total_amount]
       );
       
       const orderId = orderResult.insertId;

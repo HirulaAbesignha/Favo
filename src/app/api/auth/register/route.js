@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { db } from "@/lib/db";
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is missing in .env.local");
+}
 
 export async function POST(req) {
   try {
@@ -46,8 +53,14 @@ export async function POST(req) {
       [name, email, passwordHash]
     );
 
+    const token = jwt.sign(
+      { userId: result.insertId, role: 'customer' },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
     return NextResponse.json(
-      { ok: true, data: { userId: result.insertId } },
+      { ok: true, data: { token, role: 'customer', userId: result.insertId } },
       { status: 201 }
     );
   } catch (err) {

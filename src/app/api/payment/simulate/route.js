@@ -49,13 +49,19 @@ export async function POST(request) {
     // Generate fake transaction ID
     const transactionId = "TXN_" + Math.random().toString(36).substring(2, 10);
 
-    try {
+      try {
       await db.query(
         "INSERT INTO payments (order_id, user_id, transaction_id, amount, status) VALUES (?, ?, ?, ?, 'PAID')",
         [orderId, user.userId, transactionId, amount]
       );
+      
+      // Update order status explicitly to PAID when payment is successful
+      await db.query(
+        "UPDATE orders SET status = 'PAID' WHERE id = ?",
+        [orderId]
+      );
     } catch (dbErr) {
-      console.warn("Could not insert payment, foreign key might be missing", dbErr.message);
+      console.warn("Could not insert payment or update order", dbErr.message);
     }
 
     return NextResponse.json({

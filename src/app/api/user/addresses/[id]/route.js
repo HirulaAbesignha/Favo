@@ -63,6 +63,8 @@ export async function PUT(request, context) {
       return NextResponse.json({ ok: false, error: "Phone number must be exactly 10 digits" }, { status: 400, headers: corsHeaders });
     }
 
+    const userId = user.id || user.userId;
+
     const connection = await db.getConnection();
     await connection.beginTransaction();
 
@@ -70,7 +72,7 @@ export async function PUT(request, context) {
       // Check ownership
       const [existing] = await connection.query(
         "SELECT * FROM customer_addresses WHERE id = ? AND user_id = ?",
-        [id, user.id || user.userId]
+        [id, userId]
       );
       
       if (existing.length === 0) {
@@ -81,12 +83,10 @@ export async function PUT(request, context) {
         // Unset previous default
         await connection.query(
           "UPDATE customer_addresses SET is_default = FALSE WHERE user_id = ?",
-          [user.id]
+          [userId]
         );
       } else if (existing[0].is_default && is_default === false) {
-        // Cannot casually unset default if it's the only one, but we allow it if they really want,
-        // although usually business logic requires at least one default if multiple exist.
-        // We will just let them unset it for now.
+        // Safe unset if requested
       }
 
       await connection.query(
@@ -99,7 +99,7 @@ export async function PUT(request, context) {
           full_name, phone_number, street_address, city, 
           district || null, province || null, postal_code || null, 
           address_label || 'Home', is_default === true ? 1 : 0,
-          id, user.id
+          id, userId
         ]
       );
 
@@ -133,6 +133,8 @@ export async function DELETE(request, context) {
       return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401, headers: corsHeaders });
     }
 
+    const userId = user.id || user.userId;
+
     const connection = await db.getConnection();
     await connection.beginTransaction();
 
@@ -140,7 +142,7 @@ export async function DELETE(request, context) {
       // Verify ownership
       const [address] = await connection.query(
         "SELECT is_default FROM customer_addresses WHERE id = ? AND user_id = ?",
-        [id, user.id]
+        [id, userId]
       );
 
       if (address.length === 0) {
@@ -151,14 +153,14 @@ export async function DELETE(request, context) {
 
       await connection.query(
         "DELETE FROM customer_addresses WHERE id = ? AND user_id = ?",
-        [id, user.id]
+        [id, userId]
       );
 
       // If they deleted their default address, explicitly set another address as default if they have any left
       if (isDeletingDefault) {
         const [remaining] = await connection.query(
           "SELECT id FROM customer_addresses WHERE user_id = ? ORDER BY created_at DESC LIMIT 1",
-          [user.id]
+          [userId]
         );
         if (remaining.length > 0) {
           await connection.query(

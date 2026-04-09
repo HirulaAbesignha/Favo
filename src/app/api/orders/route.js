@@ -44,8 +44,8 @@ export async function POST(request) {
       let total_amount = 0;
       for (const item of items) {
         const [rows] = await connection.query(
-          "SELECT p.price, COALESCE(i.stock_quantity, 0) as stock_quantity FROM products p LEFT JOIN inventory i ON p.id = i.product_id WHERE p.id = ?", 
-          [item.product_id]
+          "SELECT p.price, COALESCE(i.stock_quantity, 0) as stock_quantity FROM products p LEFT JOIN inventory i ON p.id = i.product_id AND i.size = ? WHERE p.id = ?", 
+          [item.size || 'OS', item.product_id]
         );
         
         if (!rows.length) {
@@ -87,13 +87,13 @@ export async function POST(request) {
       // 3. Insert order items and update inventory
       for (const item of items) {
         await connection.query(
-          "INSERT INTO order_items (order_id, product_id, quantity, price_at_time) VALUES (?, ?, ?, ?)",
-          [orderId, item.product_id, item.quantity, item.price_at_time]
+          "INSERT INTO order_items (order_id, product_id, size, quantity, price_at_time) VALUES (?, ?, ?, ?, ?)",
+          [orderId, item.product_id, item.size || 'OS', item.quantity, item.price_at_time]
         );
         
         await connection.query(
-          "UPDATE inventory SET stock_quantity = stock_quantity - ? WHERE product_id = ?",
-          [item.quantity, item.product_id]
+          "UPDATE inventory SET stock_quantity = stock_quantity - ? WHERE product_id = ? AND size = ?",
+          [item.quantity, item.product_id, item.size || 'OS']
         );
       }
 

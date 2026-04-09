@@ -64,18 +64,18 @@ export async function POST(request) {
 
     // Insert items and deduct from inventory
     for (const item of items) {
-       await db.query(
-         "INSERT INTO order_items (order_id, product_id, quantity, price_at_time) VALUES (?, ?, ?, ?)",
-         [order_id, item.product_id, item.quantity, item.price_at_time]
-       );
+        await db.query(
+          "INSERT INTO order_items (order_id, product_id, size, quantity, price_at_time) VALUES (?, ?, ?, ?, ?)",
+          [order_id, item.product_id, item.size || 'OS', item.quantity, item.price_at_time]
+        );
        
        // Deduct the quantity from inventory 
        // (Assuming the inventory table tracks quantity via stock_quantity)
        try {
-           await db.query(
-             "UPDATE inventory SET stock_quantity = stock_quantity - ? WHERE product_id = ?",
-             [item.quantity, item.product_id]
-           );
+            await db.query(
+              "UPDATE inventory SET stock_quantity = stock_quantity - ? WHERE product_id = ? AND size = ?",
+              [item.quantity, item.product_id, item.size || 'OS']
+            );
        } catch (invErr) {
            console.warn("Failed to deduct inventory for product", item.product_id, invErr);
        }

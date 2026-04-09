@@ -1,117 +1,161 @@
 # Favo Technical Documentation
 
-Welcome to the Favo e-commerce platform documentation! This guide is designed to help you (even if you're a complete beginner) understand how different parts of Favo work together. 
+Welcome to the comprehensive Favo e-commerce platform documentation! This guide breaks down the underlying system architecture, ensuring you understand exactly what the logic is behind the platform, how CRUD (Create, Read, Update, Delete) operates, and crucially what strict validations exist module by module.
 
 Favo is split into two main codebases:
 1. **Frontend (The User Interface):** Located at `d:\AIProjectsgit\Favo - FR\`
 2. **Backend (The Core Logic/API):** Located at `d:\AIProjectsgit\Favo\`
 
-Whenever we talk about "CRUD", it stands for **C**reate, **R**ead, **U**pdate, and **D**elete — the four basic functions needed to manage data in a database.
+---
+
+## 1. Authentication Module
+
+### File Locations
+- **Backend APIs:** `d:\AIProjectsgit\Favo\src\app\api\auth\register\route.js` and `api\auth\login\route.js`
+- **Frontend UIs:** `app\register\page.js` and `app\login\page.js`
+
+### CRUD Operations
+- **Create:** User registers for a new account.
+- **Read:** Login authenticates a user's details against the database.
+
+### Validations (Compulsory)
+- Passwords must meet a minimum length of 6 characters.
+- Requires both a valid email format and an exact matching password confirmation when registering.
+- Email uniqueness constraint strictly enforced (no overlapping accounts).
+
+### Core Logic
+Uses a stateless JWT (JSON Web Token) approach securely stored either in cookies or headers. Passwords are authentically hashed before persisting to the DB, meaning the true string is never exposed physically.
 
 ---
 
-## 1. Products & Inventory Module
-This module manages the items you sell and keeps track of how much stock you have.
+## 2. Addresses Management Module
 
-### File Paths
-- **Backend API (CRUD):** `d:\AIProjectsgit\Favo\src\app\api\admin\products\route.js` and `...\[id]\route.js`
-- **Frontend Admin UI:** `d:\AIProjectsgit\Favo - FR\app\dashboard\products\page.js`
+### File Locations
+- **Backend APIs:** `d:\AIProjectsgit\Favo\src\app\api\user\addresses\route.js`
+- **Frontend UIs:** `components\address\AddressFormModal.jsx` and `app\checkout\delivery\page.js`
 
-### How it works (Logic)
-When you create a product, the backend creates an entry in the `products` table. It also automatically splits off the images into a `product_images` table so you can have multiple photos. Finally, it creates an entry in the `inventory` table for **each size** you specify, initially setting the stock to 0.
+### CRUD Operations
+- **Create:** Users can add new dynamic shipping destinations.
+- **Read:** Loads an array of addresses specifically bound to the logged-in user.
+- **Update:** Users can alter their addresses and select a "Set as Default" flag.
+- **Delete:** Users can securely remove a specific old address.
 
-### Validations Implemented
-Before a product is created or updated, the system checks:
-- **Required Fields:** `name`, `description`, and `price` must be provided.
-- **Sizes Check:** At least **one size** must be selected (e.g., S, M, L).
-- **Images Check:** At least **two product photos** are required to ensure the store looks highly editorial and premium. 
+### Validations (Compulsory)
+- **Strict Phone Enforcement:** Both frontend UI rules and backend validations strictly compel the input to be an exact **10-digit number**. Letters or spaces are rejected.
+- **Ownership Scoping:** The user must natively "own" the address ID to update or delete it.
 
----
-
-## 2. Collections Module
-Collections manage the big marketing banners, sliders, and "Hero" sections on the home page and shop page.
-
-### File Paths
-- **Backend API (CRUD):** `d:\AIProjectsgit\Favo\src\app\api\admin\collections\route.js` and `...\[id]\route.js`
-- **Frontend Admin UI:** `d:\AIProjectsgit\Favo - FR\app\dashboard\collections\page.js`
-
-### How it works (Logic)
-Each collection consists of a `title`, `subtitle`, `image_url`, and a `display_order`. The application uses Next.js `formData` to upload actual physical image files to the `public/uploads` directory.
-
-### Validations Implemented
-- **Admin Scope:** Only logged-in administrators (verified by a secure token) can create or update collections. 
-- **Requirement:** A `title` is absolutely required. 
-- **File Upload logic:** If an image is uploaded, it captures the raw buffer size and saves it safely using a timestamp to prevent file naming collisions.
+### Core Logic
+When a user targets a new address as their "Default", the system automatically performs an unflagging cycle on their previously defaulted addresses. Address bindings are hard-linked to the user's secure token ID.
 
 ---
 
-## 3. Categories Module
-The application organizes clothes dynamically using three tiers: Gender -> Category -> Subcategory.
+## 3. Products Module
 
-### File Paths
-- **Backend API (CRUD):** `d:\AIProjectsgit\Favo\src\app\api\admin\categories\route.js`
-- **Frontend Shop UI:** `d:\AIProjectsgit\Favo - FR\app\shop\page.js`
+### File Locations
+- **Backend APIs:** `src\app\api\admin\products\route.js` and `...\[id]\route.js`
+- **Frontend UIs:** `app\dashboard\products\page.js` (Admin) and `app\shop\page.js` (Customer view)
 
-### How it works (Logic)
-Instead of hardcoding "T-shirts" and "Pants", the database holds a `categories` table with the hierarchy. The storefront reads from this to generate the sidebar filters automatically.
+### CRUD Operations
+- **Create:** Admin produces a structured product offering.
+- **Read:** Fetch multiple listings with pagination/filters, or a specific single item by ID.
+- **Update:** Apply discounts or modify descriptions.
+- **Delete:** Archiving/deleting stock offerings securely.
 
----
+### Validations (Compulsory)
+- Required schema payloads: `name`, `description`, `price`, `category_id`.
+- Requires a minimum of **two product photos** to ensure premium visual aesthetics.
+- Admin secure scope token required for all writes.
 
-## 4. Checkout, Orders & Fulfillment Module
-This handles the customer's journey when buying something, tracking if it needs to be delivered or picked up.
-
-### File Paths
-- **Backend API (CRUD):** `d:\AIProjectsgit\Favo\src\app\api\orders\route.js` (Customer checkout) and `d:\AIProjectsgit\Favo\src\app\api\admin\orders\route.js` (Admin management)
-- **Frontend Flows:** `d:\AIProjectsgit\Favo - FR\app\checkout\delivery\page.js` or `pickup\page.js`
-
-### How it works (Logic)
-1. The customer loads their cart. 
-2. They select a fulfillment type: **DELIVERY** or **PICKUP**.
-3. Upon checkout, the API looks at the `inventory` table and ensures there is enough real-world stock. If stock is good, the system decreases the stock, inserts an order into the `orders` table, and logs every individual item in the `order_items` table.
-4. It generates a luxurious `FAVO-YYYYMM-XXXXX` order reference number.
-
-### Validations Implemented
-- **Stock Check:** Refuses checkout if the item is out of stock.
-- **Fulfillment Checks:** If "DELIVERY" is selected, the API requires a matching `delivery_address_id`. If "PICKUP" is chosen, a `pickup_location_id` must be submitted.
-- **Address Ownership:** The system securely checks that the delivery address actually belongs to the user currently checking out (to prevent hacking).
+### Core Logic
+Splits relational creation. The master product initializes, then the system recursively loops and bulk inserts the respective images into the `product_images` cross-table.
 
 ---
 
-## 5. Addresses & Phone Validation
-Manages where orders will be delivered. 
+## 4. Inventory & Sizes Module
 
-### File Paths
-- **Backend API (CRUD):** `d:\AIProjectsgit\Favo\src\app\api\user\addresses\route.js` 
-- **Frontend UI:** `d:\AIProjectsgit\Favo - FR\components\address\AddressFormModal.jsx`
+### File Locations
+- **Backend APIs:** `src\app\api\admin\inventory\route.js` and `...\[id]\route.js`
+- **Frontend UIs:** `app\dashboard\inventory\page.js`
 
-### Validations Implemented
-- **Strict Phone Enforcement:** Both the frontend form and backend API strictly require a valid **10-digit number**. Entering any letters or characters is impossible by design.
-- **Default Toggle:** A user can flag an address as default, and the API will unset their previous defaults.
+### CRUD Operations
+- **Create:** Defines stock levels strictly per product and per explicitly mapped **Size** (e.g., S, M).
+- **Read:** Displays aggregates of available unit volume.
+- **Update:** Restocking bulk volumes per specific size variation.
+- **Delete:** Drop the inventory tracker for a discontinued variation.
 
----
+### Validations (Compulsory)
+- Negative inventory amounts are fully forbidden by constraints.
+- Explicit combinations of `product_id` + `size` must be definitively unique per row mapping. Cannot duplicate a "Size M" twice.
 
-## 6. Payments Module & Financial Ledger
-Simulates the charging of physical credit cards and tracks financial ledgers.
-
-### File Paths
-- **Backend API:** `d:\AIProjectsgit\Favo\src\app\api\payment\simulate\route.js` and `admin/payments/route.js`
-- **Frontend UI:** `d:\AIProjectsgit\Favo - FR\app\gateway\page.jsx` and `app\dashboard\analytics\page.js`
-
-### How it works (Logic)
-Since Favo uses a simulated gateway for its demo state, the gateway (`page.jsx`) captures the credit card info. 
-1. The Frontend passes a numerical `orderId` to the backend.
-2. The Backend simulates validation—if you pass exactly 16 digits, it "succeeds".
-3. A record is securely saved into the `payments` database table with the status of `PAID` or `FAILED`.
-4. The **Financial Analytics** page loads these records to populate total revenue and show a transactional ledger.
+### Core Logic
+Handles sizing matrix logistics. It pairs with a `low_stock_threshold` to visually alert the administration when garments fall below warning volumes.
 
 ---
 
-## 7. Admin Dashboard Stats
-The dashboard that gives a bird's eye view of how much money the store is making.
+## 5. Orders, Checkout & Fulfillment Module
 
-### File Paths
-- **Backend API:** `d:\AIProjectsgit\Favo\src\app\api\admin\dashboard\route.js`
+### File Locations
+- **Backend APIs:** `src\app\api\orders\route.js` (Customer checkout) and `src\app\api\admin\orders\route.js` (Management)
+- **Frontend flows:** `app\checkout\delivery\page.js` and `app\checkout\pickup\page.js`
 
-### How it works (Logic)
-Instead of standard CRUD, this API performs massive "Aggregation Queries". It uses SQL math functions (like `SUM()`, `AVG()`, and `COUNT()`) grouped by `MONTH(created_at)`.
-This allows the frontend charts to draw exactly how sales perform across the 12 months in the year without doing complicated math in the browser.
+### CRUD Operations
+- **Create:** Customer converts cart contents into a locked transaction.
+- **Read:** Admins audit active lifecycles; customers check past histories.
+- **Update:** Admin flags statuses via states (e.g. `PENDING`, `SHIPPED`, `DELIVERED`).
+- **Delete:** Cancelling physical fulfillment operations.
+
+### Validations (Compulsory)
+- **Stock Barrier Check:** It is categorically impossible to complete checkout if a requested item crosses the available size-centric physical stock on hand.
+- Fulfillment parameter binding: If purchasing via `DELIVERY`, a `delivery_address_id` payload must map safely. If via `PICKUP`, the `pickup_location_id` is structurally required.
+
+### Core Logic
+Operates within an atomic transaction. Upon checkout, logic correctly binds the specified `size` from the cart, deducts exact matches from the `inventory` table securely, wraps a `FAVO-XX-XX` transactional reference code, and moves items formally to the `order_items` table. 
+
+---
+
+## 6. Categories Module
+
+### File Locations
+- **Backend APIs:** `src\app\api\admin\categories\route.js`
+- **Frontend UIs:** `app\dashboard\categories\page.js`
+
+### CRUD Operations
+- **Create:** Admin mounts a new root or child category.
+- **Read:** Pull hierarchically mapped collections formatting (Gender -> Category -> Subcategory).
+- **Update:** Re-titling hierarchical tree values.
+- **Delete:** Removal of taxonomy categories.
+
+### Validations (Compulsory)
+- Strict Foreign Key constraints prohibit the deletion of an active Category that relies on populated nested child product records.
+
+### Core Logic
+Uses a `parent_id` parameter to orchestrate multi-tiered self-referencing. This lets the backend output pure trees consumed seamlessly by the frontend filtration interfaces.
+
+---
+
+## 7. Payments Module (Simulated)
+
+### File Locations
+- **Backend APIs:** `src\app\api\payment\simulate\route.js` and `api\cards\route.js`
+- **Frontend flows:** `app\gateway\page.jsx`
+
+### CRUD Operations
+- **Create (Transact):** Pushing arbitrary card numbers triggers simulated clearing.
+- **Read:** Generates ledger trails for Analytics Dashboard visual consumptions.
+
+### Validations (Compulsory)
+- Validates the incoming Mock Credit Card parameter structurally—asserting it measures precisely 16 digits prior to triggering a clearance phase.
+
+### Core Logic
+Simulates a bank response network. Automatically inserts an immutable entry into the `payments` registry mapping against `order_id` flagged fully as `PAID`.
+
+---
+
+## 8. Dashboard Stats & Analytics
+
+### File Locations
+- **Backend APIs:** `src\app\api\admin\dashboard\route.js`
+- **Frontend UIs:** `app\dashboard\page.js`
+
+### Core Logic (No CRUD)
+Rather than executing raw CRUD, the analytics module performs highly concurrent aggregation. Using functional SQL components (e.g., `SUM(total_amount)`, `COUNT()`, and dynamic groupings mapped by `MONTH()`), the logic synthesizes historical datasets instantly so chart libraries in the admin viewport can render performance velocities structurally.

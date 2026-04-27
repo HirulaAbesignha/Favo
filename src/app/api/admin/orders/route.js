@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { verifyToken } from "@/lib/auth";
 
+export const dynamic = 'force-dynamic';
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -26,8 +28,25 @@ export async function GET(request) {
       LEFT JOIN users u ON o.user_id = u.id
       ORDER BY o.created_at DESC
     `);
+
+    // Calculate dashboard order stats dynamically from DB
+    const [statsDb] = await db.query(`
+      SELECT 
+        COALESCE(SUM(CASE WHEN status IN ('PENDING_PAYMENT', 'PROCESSING') THEN 1 ELSE 0 END), 0) as processing,
+        COALESCE(SUM(CASE WHEN status = 'SHIPPED' THEN 1 ELSE 0 END), 0) as inTransit,
+        COALESCE(SUM(CASE WHEN status IN ('DELIVERED', 'PICKED_UP') THEN 1 ELSE 0 END), 0) as delivered,
+        COALESCE(SUM(CASE WHEN status IN ('DELIVERED', 'PICKED_UP') THEN total_amount ELSE 0 END), 0) as netSales
+      FROM orders
+    `);
+
+    const stats = {
+        processing: parseInt(statsDb[0]?.processing || 0),
+        inTransit: parseInt(statsDb[0]?.inTransit || 0),
+        delivered: parseInt(statsDb[0]?.delivered || 0),
+        netSales: parseFloat(statsDb[0]?.netSales || 0)
+    };
     
-    return NextResponse.json({ ok: true, data: rows }, { headers: corsHeaders });
+    return NextResponse.json({ ok: true, data: rows, stats }, { headers: corsHeaders });
   } catch (error) {
     console.error("GET ORDERS ERROR:", error);
     return NextResponse.json({ ok: false, error: "Server error" }, { status: 500, headers: corsHeaders });

@@ -95,10 +95,44 @@ export async function DELETE(request, { params }) {
 
     const resolvedParams = await params;
     const id = parseInt(resolvedParams.id, 10);
-    
-    await db.query("DELETE FROM products WHERE id = ?", [id]);
+    const url = new URL(request.url);
+    const force = url.searchParams.get("force") === "true";
 
-    return NextResponse.json({ ok: true, message: "Product deleted" }, { headers: corsHeaders });
+    if (force) {
+      const connection = await db.getConnection();
+      try {
+        await connection.beginTransaction();
+        
+        // Remove from inventory, images, and recommendations (ignore if tables don't exist)
+        try { await connection.query("DELETE FROM inventory WHERE product_id = ?", [id]); } catch(e) {}
+        try { await connection.query("DELETE FROM product_images WHERE product_id = ?", [id]); } catch(e) {}
+        try { await connection.query("DELETE FROM product_recommendations WHERE product_id = ? OR recommended_product_id = ?", [id, id]); } catch(e) {}
+        
+        // Handle orders. We can't delete orders, so we update order_items to null product_id if possible,
+        // or just delete the product. If order_items.product_id is not nullable, it will throw.
+        try {
+          await connection.query("DELETE FROM products WHERE id = ?", [id]);
+        } catch (e) {
+          if (e.code === 'ER_ROW_IS_REFERENCED_2' || e.message.includes('foreign key constraint fails')) {
+            await connection.query("UPDATE order_items SET product_id = NULL WHERE product_id = ?", [id]);
+            await connection.query("DELETE FROM products WHERE id = ?", [id]);
+          } else {
+            throw e;
+          }
+        }
+        
+        await connection.commit();
+        return NextResponse.json({ ok: true, message: "Product force deleted" }, { headers: corsHeaders });
+      } catch (e) {
+        await connection.rollback();
+        throw e;
+      } finally {
+        connection.release();
+      }
+    } else {
+      await db.query("DELETE FROM products WHERE id = ?", [id]);
+      return NextResponse.json({ ok: true, message: "Product deleted" }, { headers: corsHeaders });
+    }
   } catch (error) {
     console.error("DELETE PRODUCT ERROR:", error);
     

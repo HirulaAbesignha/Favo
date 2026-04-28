@@ -336,3 +336,77 @@ This combined module handles user registration, secure login, and simulated card
       return NextResponse.json({ ok: false, message: "Payment failed" });
     }
 ```
+
+---
+
+## 7. Expected Test Cases & Implementations
+
+Below are the primary test cases corresponding to the validations detailed in the modules above. These represent the logical tests developers use to verify system reliability and data integrity.
+
+### 🧪 Test Case 1: Submitting an Empty Cart
+- **Where it is used:** Order Management (`orders/route.js`, Lines 26-28)
+- **Code Segment:**
+```javascript
+    if (!items || !items.length) {
+      return NextResponse.json({ ok: false, error: "Cart is empty" }, { status: 400, headers: corsHeaders });
+    }
+```
+- **Explanation:** This tests if the system successfully rejects an order creation attempt when a user has an empty cart, ensuring blank orders aren't processed into the database.
+
+### 🧪 Test Case 2: Adding Duplicate Product Sizes
+- **Where it is used:** Product Management (`inventory/route.js`, Lines 73-80)
+- **Code Segment:**
+```javascript
+    if (error.code === 'ER_DUP_ENTRY') {
+      if (errorMessage.includes('inventory.product_id')) {
+        errorMessage = "Inventory record for this product already exists.";
+      }
+    }
+```
+- **Explanation:** This tests the database's unique constraint to prevent admins from creating two inventory tracking records for the exact same product size, avoiding logical collisions.
+
+### 🧪 Test Case 3: Missing CMS Title
+- **Where it is used:** Showcase CMS Management (`collections/route.js`, Lines 85-90)
+- **Code Segment:**
+```javascript
+    if (!title) {
+      return NextResponse.json(
+        { ok: false, error: "Title is required" },
+        { status: 400 }
+      );
+    }
+```
+- **Explanation:** This tests if the CMS enforces complete data entry. It prevents administrators from uploading blank hero banners or unnamed collections to the storefront.
+
+### 🧪 Test Case 4: Invalid Phone Number Length (Delivery)
+- **Where it is used:** Delivery Order Management (`user/addresses/route.js`, Lines 52-54)
+- **Code Segment:**
+```javascript
+    if (!/^\d{10}$/.test(phone_number)) {
+      return NextResponse.json({ ok: false, error: "Phone number must be exactly 10 digits" }, { status: 400 });
+    }
+```
+- **Explanation:** This tests the regex validation that ensures users don't submit incorrectly formatted phone numbers (too long, too short, or containing letters) when saving a delivery address.
+
+### 🧪 Test Case 5: Incomplete Pickup Branch Data
+- **Where it is used:** Pickup Order Management (`pickup-locations/route.js`, Lines 55-57)
+- **Code Segment:**
+```javascript
+    if (!branch_name || !address_line || !city || !phone_number || !opening_hours) {
+      return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400, headers: corsHeaders });
+    }
+```
+- **Explanation:** This tests that the admin panel rejects any attempt to open a new physical pickup branch if critical customer-facing details (like the city or opening hours) are missing.
+
+### 🧪 Test Case 6: Invalid Email Format on Login
+- **Where it is used:** User & Security Management (`login/route.js`, Lines 25-30)
+- **Code Segment:**
+```javascript
+    if (!email.includes("@")) {
+      return NextResponse.json(
+        { ok: false, error: "Invalid email format." },
+        { status: 400 }
+      );
+    }
+```
+- **Explanation:** This tests the login security flow to ensure the API immediately rejects improperly formatted email strings without executing a useless database query, mitigating malicious inputs.

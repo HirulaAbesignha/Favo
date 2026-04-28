@@ -149,12 +149,32 @@ This module is the Content Management System (CMS) that allows admins to change 
 ```
 
 ### 🛡️ Validations
-- **Admin Only (Lines 51-56):** Strictly checks for the admin role.
+- **Authentication Check (`collections/route.js`, Lines 44-49):** Ensures a user is logged in before checking their role.
+```javascript
+    if (!user) {
+      return NextResponse.json(
+        { ok: false, error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+```
+
+- **Admin Only Check (`collections/route.js`, Lines 51-56):** Strictly checks for the admin role to prevent unauthorized access to CMS changes.
 ```javascript
     if (user.role !== "admin") {
       return NextResponse.json(
         { ok: false, error: "Forbidden: admin only" },
         { status: 403 }
+      );
+    }
+```
+
+- **Title Requirement (`collections/route.js`, Lines 85-90):** Ensures every showcase collection or banner has a title before saving.
+```javascript
+    if (!title) {
+      return NextResponse.json(
+        { ok: false, error: "Title is required" },
+        { status: 400 }
       );
     }
 ```

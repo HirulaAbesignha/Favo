@@ -44,6 +44,13 @@ This module handles taking items from a customer's cart and turning them into a 
     }
 ```
 
+- **Empty Cart Check (Lines 26-28):** Validates that an order actually has items before processing.
+```javascript
+    if (!items || !items.length) {
+      return NextResponse.json({ ok: false, error: "Cart is empty" }, { status: 400, headers: corsHeaders });
+    }
+```
+
 - **Fulfillment Method Check (Lines 30-36):** Requires the exact address based on the method chosen.
 ```javascript
     if (delivery_method === 'DELIVERY' && !delivery_address_id) {
@@ -89,7 +96,14 @@ This module is responsible for allowing admins to create product listings and as
 ```
 
 ### 🛡️ Validations
-- **Product Details (`products/route.js`, Lines 64-75):** Requires at least one size and two images.
+- **Name and Price Required (`products/route.js`, Lines 64-66):** Makes sure the product has basic identifying details.
+```javascript
+    if (!name || price === undefined) {
+      return NextResponse.json({ ok: false, error: "Name and Price are required" }, { status: 400, headers: corsHeaders });
+    }
+```
+
+- **Product Details (`products/route.js`, Lines 67-75):** Requires description, at least one size, and two images.
 ```javascript
     if (!sizes || !Array.isArray(sizes) || sizes.length === 0) {
       return NextResponse.json({ ok: false, error: "At least one size is required" }, { status: 400 });
@@ -165,6 +179,13 @@ This module lets customers add, view, and manage their personal shipping address
 ```
 
 ### 🛡️ Validations
+- **Required Fields (Lines 48-50):** Ensures no address is saved missing vital physical details like name and street.
+```javascript
+    if (!full_name || !phone_number || !street_address || !city) {
+      return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400, headers: corsHeaders });
+    }
+```
+
 - **Strict Phone Formatting (Lines 52-54):** Uses a Regex `/^\d{10}$/` to make absolutely sure the phone number contains exactly 10 numbers.
 ```javascript
     if (!/^\d{10}$/.test(phone_number)) {
@@ -192,6 +213,13 @@ This handles physical store branches where users can choose to go pick up their 
 ```
 
 ### 🛡️ Validations
+- **Required Fields (Lines 55-57):** Makes sure all branch data is available for users.
+```javascript
+    if (!branch_name || !address_line || !city || !phone_number || !opening_hours) {
+      return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400, headers: corsHeaders });
+    }
+```
+
 - **Strict Phone Formatting (Lines 59-61):** 
 ```javascript
     if (!/^\d{10}$/.test(phone_number)) {
@@ -204,10 +232,11 @@ This handles physical store branches where users can choose to go pick up their 
 ## 6. User, Payment and Security Management
 
 **Primary File Locations:** 
-- `d:\AIProjectsgit\Favo\src\app\api\auth\register\route.js` (User & Security)
+- `d:\AIProjectsgit\Favo\src\app\api\auth\register\route.js` (Registration)
+- `d:\AIProjectsgit\Favo\src\app\api\auth\login\route.js` (Login)
 - `d:\AIProjectsgit\Favo\src\app\api\payment\simulate\route.js` (Payment)
 
-This combined module handles user registration and simulated card payments.
+This combined module handles user registration, secure login, and simulated card payments.
 
 ### 🧠 Logic Used
 - **Password Hashing (`register/route.js`, Line 48):** Encrypts the password for security.
@@ -228,6 +257,41 @@ This combined module handles user registration and simulated card payments.
 ```
 
 ### 🛡️ Validations
+- **Name, Email, and Password Requirements (`register/route.js`, Lines 20-25):** Core security to require basic identifying info.
+```javascript
+    if (!name || !email || !password) {
+      return NextResponse.json(
+        { ok: false, error: "Name, email, and password are required." },
+        { status: 400 }
+      );
+    }
+```
+
+- **Email Uniqueness (`register/route.js`, Lines 35-45):** Checks the DB to avoid duplicate accounts.
+```javascript
+    const [existing] = await db.query(
+      "SELECT id FROM users WHERE email = ? LIMIT 1",
+      [email]
+    );
+
+    if (existing.length > 0) {
+      return NextResponse.json(
+        { ok: false, error: "Email already registered." },
+        { status: 409 }
+      );
+    }
+```
+
+- **Email Format Validation (`login/route.js`, Lines 25-30):** Ensures the user inputs a valid email format containing an '@' symbol during login.
+```javascript
+    if (!email.includes("@")) {
+      return NextResponse.json(
+        { ok: false, error: "Invalid email format." },
+        { status: 400 }
+      );
+    }
+```
+
 - **Password Length (`register/route.js`, Lines 27-32):** Ensures a safe password length.
 ```javascript
     if (password.length < 6) {

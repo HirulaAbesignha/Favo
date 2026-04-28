@@ -22,6 +22,13 @@ export async function POST(req) {
       );
     }
 
+    if (!email.includes("@")) {
+      return NextResponse.json(
+        { ok: false, error: "Invalid email format." },
+        { status: 400 }
+      );
+    }
+
     // Find user
     const [rows] = await db.query(
       "SELECT id, email, password_hash, role, is_blocked FROM users WHERE email = ? LIMIT 1",

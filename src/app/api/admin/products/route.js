@@ -79,7 +79,7 @@ export async function POST(request) {
       await connection.beginTransaction();
 
       const [result] = await connection.query(
-        "INSERT INTO products (name, description, price, category_id, is_active, collection, sizes, is_featured, is_visible, promotional_label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO products (name, description, price, category_id, is_active, collection, sizes, is_featured, is_visible, promotional_label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [name, description, parseFloat(price), category_id || null, is_active !== undefined ? is_active : 1, collection || 'CORE COLLECTION', JSON.stringify(sizes), is_featured ? 1 : 0, is_visible !== undefined ? is_visible : 1, promotional_label || null]
       );
       

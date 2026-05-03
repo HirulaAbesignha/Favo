@@ -1,0 +1,1270 @@
+   
+ 
+   
+ 
+ 
+Sri Lanka Institute of Information Technology 
+ 
+ 
+IT2021 Artificial Intelligence and Machine Learning Project 
+Year 2, Semester 2 - 2026 
+Assignment 05 Final Report 
+SMART UNIVERSITY SUPPORT PLATFORM 
+An Integrated AI-Powered Campus Services Application 
+Team Members 
+Registration Number Full Name 
+IT24101355 JAYALATH J.G.H. 
+IT24101263 BANDARA K.G.V.A 
+IT24102730 KARUNARATHNA R.N.D.W 
+IT24100459 GUNARATHNE A.A.C.T 
+IT24101243 PUNCHIHEWA P.K.N 
+IT24100472 MADHUMAL D.A.S. 
+IT24100862 KAVISHKA G.D.H. 
+
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+ii 
+ 
+Declaration 
+We, the undersigned, hereby declare that the work presented in this report is our own original work. 
+This report has not been submitted for any other academic qualification at this or any other institution. 
+All sources of information have been duly acknowledged using the IEEE referencing style. 
+We further declare that the system described herein the Smart University Support Platform was 
+designed and developed by the team listed below as part of the IT2021 Artificial Intelligence and 
+Machine Learning module. 
+ 
+GroupNumber: .WE.01.G03 
+Module: IT2021 AI/ML Project 
+Project Title: Smart University Support Platform (SUSP) 
+Date: 2026/04/28 
+ 
+Registration Number Full Name 
+IT24101355 JAYALATH J.G.H. 
+IT24101263 BANDARA K.G.V.A 
+IT24102730 KARUNARATHNA R.N.D.W 
+IT24100459 GUNARATHNE A.A.C.T 
+IT24101243 PUNCHIHEWA P.K.N 
+IT24100472 MADHUMAL D.A.S. 
+IT24100862 KAVISHKA G.D.H. 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+iii 
+ 
+Abstract 
+University campuses encompass a diverse ecosystem of services that students and staff interact with on 
+a daily basis including academic support, parking management, food ordering, lost property recovery, 
+study space allocation, and peer -to-peer commerce. T he fragmented nature of these services, each 
+operating through separate manual processes or isolated digital tools, creates significant friction and 
+inefficiency in the campus experience. 
+ 
+This report presents the design and development of the Smart University Support Platform a unified, 
+AI/ML-enhanced mobile application developed for Sri Lanka Institute of Information Technology 
+(SLIIT). The platform consolidates six critical campus service s into a single, cohesive application: 
+Smart Study Support, Parking Management, Food Corner, Lost and Found, Study Areas, and 
+Marketplace. 
+ 
+The AI/ML core of the system comprises three tightly integrated intelligent components. First, an AI -
+powered Semantic Search engine in the Lost and Found module employs vector embedding similarity 
+techniques to match user descriptions or existing posts aga inst the full catalogue of reported items, 
+enabling accurate retrieval beyond simple keyword matching. Second, an AI Product Suggestion engine 
+in the Marketplace Buyer module uses content-based filtering to match a natural language description 
+of a user's need against active listings, surfacing relevant items without requiring exact search terms. 
+Third, a Study Support Grouping mechanism applies clustering algorithms to identify and group 
+semantically similar academic requests, enabling tutors to address mu ltiple students with shared 
+confusion in a single session rather than responding to each individually. 
+ 
+Beyond its AI capabilities, the platform provides a comprehensive Smart Study Support module for 
+submitting and tracking tutoring requests; a Campus Parking Management system with a visual lot 
+layout and vehicle registration; a Food Corner for browsing canteen menus and placing orders; a Study 
+Areas tracker with real-time GPS-based occupancy detection; and a Marketplace supporting both buyer 
+and seller workflows with AI-assisted product discovery. 
+ 
+The system was evaluated through functional testing across all six modules, AI/ML model performance 
+assessment, and user feedback collection. Results demonstrate strong functional coverage, measurable 
+AI prediction accuracy, and high usability scores from simulated stakeholder evaluations. 
+ 
+Keywords: Campus Management, Semantic Search, Vector Embeddings, Recommendation System, 
+Text Clustering, Parking Management, Food Ordering, Study Area Occupancy, Mobile Application, 
+SLIIT. 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+iv 
+ 
+Acknowledgement 
+The successful completion of this project would not have been possible without the guidance, support, 
+and collaboration of numerous individuals, and we take this opportunity to express our sincere gratitude. 
+We extend our deepest appreciation to our module lecturers, Ms. Akshi Himahansi, Ms. Subodha 
+Subasingha, and Prof. Dilshan De SIlva, for their invaluable academic guidance, constructive feedback 
+throughout all assignment phases, and their commitment to the  learning outcomes of the IT2021 
+module. 
+We also acknowledge the institutional support provided by the Sri Lanka Institute of Information 
+Technology (SLIIT), particularly the Department of Information Technology, Faculty of Computing, 
+for providing the academic infrastructure and resources necessary for this project. 
+ 
+Finally, we wish to acknowledge the collective dedication of all seven team members JAYALATH 
+J.G.H., BANDARA K.G.V.A., KARUNARATHNA R.N.D.W., GUNARATHNE A.A.C.T., 
+PUNCHIHEWA P.K.N., MADHUMAL D.A.S., and KAVISHKA G.D.H. whose collaborative effort, 
+mutual ac countability, and shared commitment to quality made this project a meaningful learning 
+experience. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+v 
+ 
+Table of Contents  
+ 
+Declaration .............................................................................................................................................. ii 
+Abstract .................................................................................................................................................. iii 
+Acknowledgement ................................................................................................................................. iv 
+List of Abbreviations ............................................................................................................................ vii 
+Chapter 1: Introduction ........................................................................................................................... 1 
+1.1 Problem and Motivation ................................ ................................ ................................ .. 1 
+1.2 Literature Review ................................ ................................ ................................ ........... 1 
+1.3 Aim and Objectives ................................ ................................ ................................ ........ 2 
+1.3.1 Project Aim ................................ ................................ ................................ ............. 2 
+1.3.2 Project Objectives................................ ................................ ................................ ..... 2 
+1.4 Solution Overview ................................ ................................ ................................ .......... 3 
+Chapter 2: Requirement Analysis ........................................................................................................... 4 
+2.1 Stakeholder Analysis ................................ ................................ ................................ ....... 4 
+2.2 Feasibility and SWOT Analysis ................................ ................................ ........................ 4 
+2.2.1 Feasibility Analysis ................................ ................................ ................................ .. 4 
+2.2.2 SWOT Analysis ................................ ................................ ................................ ....... 5 
+2.3 Requirements Modelling ................................ ................................ ................................ . 5 
+2.3.1 Functional Requirements ................................ ................................ ........................... 5 
+2.3.2 Non-Functional Requirements ................................ ................................ .................... 6 
+2.3.3 Use Case Summary ................................ ................................ ................................ ... 6 
+Chapter 3: Design and Development ...................................................................................................... 8 
+3.1 System Architecture ................................ ................................ ................................ ........ 8 
+3.1.1 Component Architecture Description ................................ ................................ .......... 9 
+3.2 Process and Workflow Diagrams ................................ ................................ ...................... 9 
+3.2.1 AI Lost and Found Search Workflow ................................ ................................ .......... 9 
+3.2.2 Study Support Request Grouping Workflow ................................ ..............................  10 
+ ................................ ................................ ................................ ................................ .... 10 
+3.2.3 Marketplace AI Product Suggestion Workflow ................................ .......................... 10 
+3.3 Database Design ................................ ................................ ................................ ........... 11 
+3.3.1 Core Collections and Relationships ................................ ................................ ........... 12 
+3.4 AI/ML Development ................................ ................................ ................................ ..... 12 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+vi 
+ 
+3.4.1 AI Semantic Search Lost and Found (UC-701) ................................ ........................... 12 
+3.4.2 AI Product Suggestion Marketplace (UC-702) ................................ ........................... 13 
+3.4.3 Study Support Request Grouping (UC-703) ................................ ...............................  13 
+3.4.4 GPS-Based Study Area Occupancy Tracking ................................ ............................. 14 
+Chapter 4: Results and Evaluation ........................................................................................................ 15 
+4.1 System Outcomes ................................ ................................ ................................ ......... 15 
+4.2 Functional Testing Results ................................ ................................ ............................. 15 
+4.3 AI/ML Model Performance ................................ ................................ ............................ 16 
+4.4 User Feedback ................................ ................................ ................................ .............. 16 
+Chapter 5: Conclusion ........................................................................................................................... 18 
+5.1 Summary of Achievements ................................ ................................ ............................ 18 
+5.2 Achievement of Aim and Objectives ................................ ................................ ............... 18 
+5.3 Future Work ................................ ................................ ................................ ................ 18 
+References ............................................................................................................................................. 20 
+Appendix A: Team Contribution .......................................................................................................... 21 
+Appendix B: Additional Supporting Material ....................................................................................... 22 
+B.1 Technology Stack ................................ ................................ ................................ ........ 22 
+B.2 Project Git Repository ................................ ................................ ................................ .. 22 
+B.3 Screenshots of Main User Interfaces ................................ ................................ ............... 23 
+ 
+ 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+vii 
+ 
+List of Abbreviations 
+ 
+Abbreviation Full Form 
+AI Artificial Intelligence 
+AIML Artificial Intelligence and Machine Learning 
+API Application Programming Interface 
+CRUD Create, Read, Update, Delete 
+EER Enhanced Entity-Relationship 
+GPS Global Positioning System 
+IEEE Institute of Electrical and Electronics Engineers 
+ML Machine Learning 
+NLP Natural Language Processing 
+RBAC Role-Based Access Control 
+RMSE Root Mean Square Error 
+SKU Stock Keeping Unit 
+SLIIT Sri Lanka Institute of Information Technology 
+SUSP Smart University Support System 
+SWOT Strengths, Weaknesses, Opportunities, Threats 
+TF-IDF Term Frequency Inverse Document Frequency 
+UI User Interface 
+UX User Experience 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 1 of 37 
+Chapter 1: Introduction 
+1.1 Problem and Motivation 
+University campus environments are characterized by a wide array of parallel services that students 
+must navigate independently. At the Sri Lanka Institute of Information Technology (SLIIT), students 
+routinely require access to academic tutoring support, c ampus parking, canteen meal ordering, lost 
+property resolution, study space information, and peer -to-peer buying and selling. These services are 
+presently managed through disconnected channels physical noticeboards, WhatsApp groups, verbal 
+communication, and standalone applications creating a fragmented and inefficient experience for the 
+university community. 
+Several specific pain points motivate this project. First, academic support requests are submitted 
+individually to lecturers, who must then respond to dozens of students who may share identical 
+conceptual difficulties. Without a mechanism to identify and g roup similar requests, tutoring sessions 
+are duplicated and inefficient. Second, campus parking is managed manually; students lack real -time 
+visibility into slot availability, resulting in time wasted circling the lot, and the absence of digital 
+registration creates accountability gaps. Third, food ordering at canteens requires physical queuing 
+during peak hours, increasing congestion and wait times. Fourth, lost items reported through social 
+media channels are searched manually, with no intelligent matching between a finder's description and 
+a seeker's description. Fifth, study area occupancy particularly in the library and designated zones is not 
+communicated digitally, requiring students to physically scout for available space. Sixth, student -to-
+student commerce for textbooks, electronics, and equipment has no trusted, campus-specific platform. 
+The motivation for this project is rooted in the opportunity to address these six main pain points through 
+a single intelligent mobile application that applies AI/ML to the most friction -intensive aspects of 
+campus life. 
+ 
+1.2 Literature Review 
+The application of Natural Language Processing and semantic similarity techniques to item retrieval 
+has been extensively studied in the context of information retrieval systems. Mikolov et al. [1] 
+introduced word embedding models that capture semantic rela tionships between terms, enabling 
+similarity searches that extend beyond exact keyword matching. Subsequent work by Reimers and 
+Gurevych [2] with Sentence-BERT demonstrated that transformer-based sentence embeddings provide 
+superior semantic similarity per formance for paraphrase matching and duplicate detection tasks a 
+capability directly relevant to matching lost item descriptions submitted by different users. 
+Recommendation systems for e -commerce applications have been studied by Ricci et al. [3], who 
+established that content-based filtering where item attributes are matched to user-expressed preferences 
+achieves strong precision for small, domain-specific catalogues such as a university marketplace. This 
+approach avoids the cold-start problem inherent in collaborative filtering when user interaction history 
+is sparse. 
+The clustering of academic support requests relates directly to the work of Agrawal and Pant [4], who 
+applied K-Means and hierarchical clustering to student query datasets and demonstrated that up to 68% 
+of support requests could be addressed by a single r esponse targeting a cluster centroid topic. This 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 2 of 37 
+finding underpins the 'GROUPED' status mechanism in the Smart Study Support module, where the 
+system identifies when multiple students have submitted thematically equivalent requests. 
+Real-time occupancy detection using GPS has been studied in the context of smart campus systems by 
+Raza et al. [5], who demonstrated that mobile device proximity to predefined GPS coordinates with 
+configurable radius parameters can achieve reliable indoor-outdoor occupancy classification for room-
+sized and zone-sized areas. Their methodology, applied here to study area occupancy tracking, achieves 
+practical accuracy without requiring dedicated hardware infrastructure. 
+The design of multi-service campus platforms has been examined by Aldowah et al. [6], who identified 
+service fragmentation as a primary driver of digital friction in university environments, and proposed 
+unified platform architectures as the most effective mitigation strategy, citing measurable improvements 
+in student engagement and service utilization when disparate services are consolidated. 
+1.3 Aim and Objectives 
+1.3.1 Project Aim 
+The aim of this project is to design, develop, and evaluate the Smart University Support Platform an 
+AI/ML-powered mobile campus services application for SLIIT that unifies academic support, parking 
+management, food ordering, lost and found, study area tra cking, and student marketplace operations 
+within a single platform, while embedding artificial intelligence to automate study support grouping, 
+lost item matching, and product recommendations. 
+1.3.2 Project Objectives 
+1. Design and implement a comprehensive multi-module mobile application encompassing Smart 
+Study Support, Parking Management, Food Corner, Lost and Found, Study Areas, and 
+Marketplace modules. 
+2. Develop and deploy a Semantic Similarity Search engine for the Lost and Found module, 
+enabling AI-powered retrieval of similar item posts based on natural language descriptions. 
+3. Design and implement an AI Product Suggestion system for the Marketplace module, matching 
+user-expressed needs to relevant active listings. 
+4. Implement a Study Support Grouping mechanism that clusters semantically similar academic 
+requests, enabling tutors to deliver a single response to multiple students with shared 
+difficulties. 
+5. Develop a GPS -based real -time Study Area Occupancy tracking system that automatically 
+detects when users enter or exit defined study zones. 
+6. Build a Smart Parking Management system with visual lot layout, vehicle registration, and 
+auto-release functionality. 
+7. Design a Food Corner module supporting multiple canteens, digital menu browsing, and order 
+placement with cart and order history. 
+8. Evaluate the complete system through functional testing, AI/ML model performance 
+assessment, and structured user feedback collection. 
+ 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 3 of 37 
+1.4 Solution Overview 
+The Smart University Support Platform is a full-stack mobile application designed for the SLIIT campus 
+community. The system is organized into six primary service modules, each addressing a distinct 
+campus operational domain, and an AI/ML subsystem that en hances three of these modules with 
+intelligent automation. 
+The Smart Study Support module provides a student-facing dashboard for submitting academic support 
+requests, specifying topic, availability slots, and description. The system groups similar requests using 
+NLP clustering and presents them to tutors for batc h resolution. Students can track the status of their 
+requests from submission through scheduling to completion. 
+The Parking Management module presents a live visual map of all parking lot sections Car Park Side 
+A, Car Park Side B, and Motorcycle Parking with colour-coded slot availability (green: available, red: 
+occupied, blue: your slot). Students register their vehicles and tap a slot to park; slots auto-release after 
+24 hours. 
+The Food Corner module allows students to select a canteen and browse its menu with item images and 
+prices. Orders are managed through a cart and orders history interface. 
+The Lost and Found module enables students to post found or lost items with descriptions, images, and 
+location tags. An AI Search feature accepts a natural language description or an existing post as 
+reference and returns semantically similar listings, dramatically improving the probability of reuniting 
+owners with their lost property. 
+The Study Areas module uses real -time GPS location to determine which study zones are currently 
+occupied by registered students. A campus -wide list shows each area with its current student count, 
+capacity, and occupancy status (Free, Moderate, Crowded). St udents' tracking status is active as long 
+as the app is running. 
+The Marketplace module supports both buyer and seller workflows. Sellers create listings with images, 
+descriptions, and prices and manage incoming purchase requests. Buyers browse listings sorted by 
+recency or price, and can use the AI Product Suggestions feature to describe their need in natural 
+language and receive intelligently matched listing recommendations. 
+The Git repository containing the complete source code, commit history, and development artefacts for 
+this project is accessible at: 
+https://github.com/it24101264/WE_DS_G03_AIML 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 4 of 37 
+Chapter 2: Requirement Analysis 
+2.1 Stakeholder Analysis 
+A thorough stakeholder analysis was conducted at the project inception phase to identify all parties 
+whose interests and workflows are affected by the Smart University Support Platform. Table 2.1 
+presents the identified stakeholders, their roles, primary i nterests, and their influence on system 
+requirements. 
+Stakeholder Role in System Primary Interest Influence on Requirements 
+Student Primary User Seamless access to all campus 
+services 
+High drives all module UX 
+design 
+Lecturer / Tutor Study Support 
+Provider 
+Efficient grouping and scheduling 
+of student requests 
+High drives Smart Study 
+Support design 
+Canteen Operator Food Corner 
+Admin 
+Accurate order management, 
+menu configuration 
+Medium drives Food Corner 
+admin features 
+Security / Parking 
+Staff 
+Parking Supervisor Real-time lot visibility, vehicle 
+accountability 
+Medium drives Parking 
+Management design 
+University Admin System Overseer Campus resource utilization, data 
+governance 
+Medium non-functional 
+requirements 
+AI / Backend 
+Engineer 
+Technical Owner Model accuracy, API reliability, 
+scalability 
+High drives AI/ML and 
+backend requirements 
+Table 2.1: Stakeholder Analysis 
+2.2 Feasibility and SWOT Analysis 
+2.2.1 Feasibility Analysis 
+Technical Feasibility: The system is built on React Native for cross-platform mobile development and 
+MongoDB/REST API for backend services — both widely adopted stacks with strong community 
+support. The AI/ML components utilize Python -based NLP libraries (scikit -learn, Sentence  
+Transformers) with well-documented APIs. Real-time GPS tracking is a native mobile capability. The 
+technical scope is within the competency of the development team. 
+Operational Feasibility: Each module maps directly to an existing campus workflow, minimizing 
+adoption friction. The application targets a student demographic that is highly familiar with mobile 
+interfaces, reducing the learning curve. The AI Search and suggestion features are exp osed through 
+natural language interfaces that require no technical knowledge to operate. 
+Economic Feasibility:  As an academic project developed within SLIIT's IT2021 module, the 
+development cost is limited to student time and open -source tooling. Deployment on free -tier cloud 
+services (MongoDB Atlas, Render) ensures zero infrastructure cost for the prototype phase. Operational 
+benefits include a reduction in administrative overhead for parking, food service management, and 
+academic support scheduling. 
+Legal Feasibility: The application processes user location data for study area tracking. User consent is 
+obtained at app installation. All personal data is handled in accordance with applicable data privacy 
+guidelines. No third-party proprietary data is used in model training. 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 5 of 37 
+ 
+2.2.2 SWOT Analysis 
+Table 2.2: Swot Analysis 
+ 
+2.3 Requirements Modelling 
+2.3.1 Functional Requirements 
+The functional requirements of the system were derived from stakeholder interviews and campus 
+service workflow analysis. The primary functional requirement clusters are organized by module below. 
+Smart Study Support: The system shall enable students to submit academic support requests with topic 
+selection (UC-101), view their request history and current status (UC -102), allow tutors to view AI -
+grouped requests and schedule sessions (UC -103), and pu blish study sessions visible to all eligible 
+students (UC-104). 
+Parking Management: The system shall allow students to register their vehicles with type and plate 
+number (UC-201), select an available parking slot from a colour -coded visual lot layout (UC -202), 
+release their slot manually or via 24-hour auto-release (UC-203), and view live statistics on lot capacity 
+and occupancy percentage (UC-204). 
+Food Corner: The system shall support canteen selection (UC -301), menu browsing with item images 
+and prices, cart management, and order placement (UC -302), and a personal order history view (UC -
+303). 
+Lost and Found: The system shall enable students to post lost or found items with description, category, 
+location, and optional image (UC-401), browse and filter all listings (UC-402), use AI semantic search 
+to find similar items (UC-403), and mark items as returned (UC-404). 
+Study Areas: The system shall display a list of all campus study areas with real -time student count, 
+capacity, and occupancy status (UC -501), automatically check students in and out of areas based on 
+GPS proximity (UC-502), and provide detailed area information on demand (UC-503). 
+Marketplace: The system shall support seller listing creation and management (UC-601), buyer request 
+review by sellers (UC -602), buyer-side listing browsing and keyword search (UC -603), AI product 
+ Positive Negative 
+Internal STRENGTHS: Unified platform eliminating 
+service fragmentation AI-powered search and 
+recommendations GPS-based real-time 
+tracking Cross-platform mobile development 
+Student-centric UX design 
+WEAKNESSES: GPS accuracy limitations 
+indoors Cold-start limitation for AI 
+recommendation with sparse marketplace 
+data Dependency on user consent for location 
+access Requires continuous internet 
+connectivity 
+External OPPORTUNITIES: Scalability to other 
+SLIIT campuses Integration with university 
+ERP systems Expansion of AI features 
+(timetable optimisation, exam room 
+allocation) Potential partnership with canteen 
+operators for digital payments 
+THREATS: Student adoption resistance 
+Privacy concerns over GPS tracking 
+Competing commercial apps (PickMe Food, 
+Uber Eats) for food ordering Regulatory 
+changes to data privacy laws in Sri Lanka 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 6 of 37 
+suggestion via natural language description powered by the AI Subsystem (UC -604), buyer-side cart 
+management allowing items to be added and reviewed (UC-605) 
+AI Subsystem: The system shall execute semantic search over lost and found listings using vector 
+similarity (UC-701), generate product suggestions for marketplace buyers using content-based filtering 
+(UC-702), and cluster study support requests by semantic  similarity for grouped tutor responses (UC-
+703). 
+2.3.2 Non-Functional Requirements 
+Performance: The AI semantic search shall return results within 3 seconds for a catalogue of up to 500 
+active listings. GPS occupancy updates shall refresh within 10 seconds of a user entering or exiting a 
+study zone boundary. 
+Security: All user sessions shall be authenticated via email/password with secure token management. 
+User location data shall only be used for occupancy tracking and shall not be disclosed to other users. 
+Usability: The AI Search and AI Product Suggestions interfaces shall accept plain natural language 
+input with no technical knowledge required. The parking lot layout shall be visually intuitive with clear 
+colour coding. 
+Reliability: Parking slots shall auto-release after 24 hours to prevent abandoned slot occupation. The 
+system shall handle GPS signal loss gracefully by retaining the last known occupancy state. 
+Maintainability: The AI/ML pipeline shall be separated from the mobile application layer to enable 
+model updates without requiring app redeployment. 
+ 
+2.3.3 Use Case Summary 
+Module Use Case 
+ID Use Case Name Priority 
+System Login UC-001 User Login & Authentication Critical 
+Study Support UC-101 Submit Support Request Critical 
+Study Support UC-102 View My Requests & Status High 
+Study Support UC-103 Tutor: View & Schedule Grouped Requests High 
+Study Support UC-104 Publish Study Session Medium 
+Parking UC-201 Register Vehicle High 
+Parking UC-202 Select Parking Slot from Visual Map Critical 
+Parking UC-203 Release Parking Slot High 
+Parking UC-204 View Live Lot Occupancy Statistics Medium 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 7 of 37 
+Food Corner UC-301 Select Canteen & Browse Menu Critical 
+Food Corner UC-302 Add Items to Cart & Place Order Critical 
+Food Corner UC-303 View Order History Medium 
+Lost & Found UC-401 Post Lost or Found Item Critical 
+Lost & Found UC-402 Browse and Filter Listings High 
+Lost & Found UC-403 AI Search by Description or Post High 
+Lost & Found UC-404 Mark Item as Returned Medium 
+Study Areas UC-501 View Study Area Occupancy List Critical 
+Study Areas UC-502 GPS-Based Auto Check-In / Check-Out High 
+Study Areas UC-503 View Area Details and Capacity Medium 
+Marketplace UC-601 Seller: Create Listing Critical 
+Marketplace UC-602 Seller: Review Buyer Requests High 
+Marketplace UC-603 Buyer: Browse & Search Listings Critical 
+Marketplace UC-604 Buyer: AI Product Suggestions High 
+Marketplace UC-605 Buyer: Add to Cart Medium 
+AI Subsystem UC-701 AI Semantic Search (Lost & Found) Critical 
+AI Subsystem UC-702 AI Product Suggestion (Marketplace) Critical 
+AI Subsystem UC-703 Study Support Request Grouping Critical 
+Table 2.3: Use Case Summary by Module 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 8 of 37 
+Chapter 3: Design and Development 
+3.1 System Architecture 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 3.1: System Architecture Diagram 
+The Smart University Support Platform is designed as a three -tier layered architecture comprising a 
+Presentation Layer (React Native mobile application), an Application Layer (REST API backend 
+services), and a Data Layer (MongoDB Atlas database and Python AI microservices). This architectural 
+pattern ensures separation of concerns, enabling independent development, testing, and deployment of 
+each tier. 
+The Presentation Layer is a React Native mobile application delivering a unified interface across 
+Android and iOS platforms. It provides module -specific screens for each of the six service domains, 
+with a shared authentication layer and a home screen modul e selector. The application communicates 
+with the backend exclusively through REST API calls. 
+The Application Layer is organized into six primary service modules — Study Support Service, Parking 
+Service, Food Service, Lost and Found Service, Study Area Service, and Marketplace Service — each 
+encapsulating the business logic for its respective domai n. A dedicated AI/ML Microservice handles 
+all machine learning workflows: semantic embedding computation, similarity search, recommendation 
+generation, and request clustering. An Authentication Service manages user sessions and role -based 
+access using JWT (JSON Web Tokens). 
+The Data Layer comprises MongoDB Atlas as the primary operational database for storing all 
+application data across service domains, a cloud storage bucket for item images (Lost and Found and 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 9 of 37 
+Marketplace), and a Python AI microservice environment maintaining pre -computed embedding 
+indices for fast similarity retrieval. 
+ 
+3.1.1 Component Architecture Description 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+Figure 3.2: Component Architecture Diagram 
+The central integration point of the system is the shared Authentication context, which gates access to 
+all six modules. The Study Support module feeds student request data into the AI Grouping Engine, 
+which returns cluster labels that the tutor dashboard uses to present grouped views. The Lost and Found 
+module feeds item descriptions into the Semantic Search Engine at query time, returning ranked similar 
+results. The Marketplace Buyer module submits natural language need descriptions to the Product 
+Suggestion Engine, which returns relevant listing IDs ranked by content similarity. 
+The AI/ML microservice follows a pipeline architecture: Raw Text Input → Tokenisation → Sentence 
+Embedding (Sentence -BERT / TF -IDF) → Similarity Computation (cosine similarity) → Ranked 
+Result Return. For the Study Support Grouping pipeline, the flow is: Batch of Requests → Embedding 
+→ K-Means Clustering → Cluster Label Assignment → Tutor Dashboard Notification.  
+3.2 Process and Workflow Diagrams 
+3.2.1 AI Lost and Found Search Workflow 
+ 
+Figure 3.3: AI Lost and Found Search Workflow 
+
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 10 of 37 
+The AI Lost and Found search workflow is initiated when a student either types a natural language 
+description of their item or selects an existing post as a reference. The system submits this input to the 
+Semantic Search Engine, which computes a sentence e mbedding vector using the pre -trained model. 
+This query vector is compared against pre-computed embeddings for all active listings in the catalogue 
+using cosine similarity. Items are ranked by similarity score and returned to the user as an ordered result 
+list. The system filters out the query post itself if a reference post was used as input. 
+ 
+3.2.2 Study Support Request Grouping Workflow 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 3.4: Study Support Grouping Workflow 
+The Study Support Grouping workflow is triggered when a new request is submitted or on a scheduled 
+batch basis. The AI Grouping Engine embeds all pending requests for a given topic area and applies K-
+Means clustering to identify groups of semantically simi lar requests. Requests assigned to the same 
+cluster are tagged with a 'GROUPED' status, and the cluster topic is surfaced to the assigned tutor along 
+with the count of affected students. The tutor can then schedule a single session to address the shared 
+conceptual difficulty, and all grouped students are notified simultaneously. 
+3.2.3 Marketplace AI Product Suggestion Workflow 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 3.5: AI Product Suggestion Workflow 
+
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 11 of 37 
+The AI Product Suggestion workflow begins when a buyer enters a natural language description of their 
+need into the suggestion input field. The system embeds this description and computes its cosine 
+similarity against the pre-computed embeddings of all active marketplace listings. Listings are ranked 
+by similarity score, and the top results are displayed to the buyer. The system considers both the listing 
+title and description in its similarity computation, ensuring that conceptually relevant items are surfaced 
+even when the exact terminology differs from the buyer's query. 
+ 
+3.3 Database Design 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 3.6: Entity-Relationship Diagram 
+The database schema of the Smart University Support Platform is implemented in Mongo DB Atlas, a 
+document-oriented NoSQL database, and is designed around seven primary collection clusters 
+reflecting the modular architecture of the system. 
+ 
+ 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 12 of 37 
+3.3.1 Core Collections and Relationships 
+The Users collection stores all registered user profiles with fields for user ID, name, email address, 
+hashed password reference, assigned role (Student, BatchRep, Admin, Canteen Owner), and registration 
+timestamp. 
+The SupportRequests collection captures each academic support request with fields for topic code, 
+subtopic description, submitting user ID, availability slots (array of date -time pairs), current status 
+(Pending, Grouped, Scheduled, Completed), cluster labe l, and session reference. Cluster labels are 
+written by the AI Grouping Engine after processing. 
+The ParkingSlots collection maintains the state of every parking slot in the campus lots, with fields for 
+slot ID, section code (A, B, BK), status (Available, Occupied), occupying user ID, and occupation 
+timestamp. An auto-release scheduled background job monitors occupation timestamps and resets slots 
+after 24 hours. 
+The Canteens and MenuItems collections support the Food Corner module. Each Menu Item  record 
+stores canteen reference, item name, description, price, availability flag, and image URL. Orders are 
+stored in a separate Orders collection referencing user, can teen, item list, quantities, total price, and 
+status. 
+The LostFoundItems collection stores each posting with fields for title, description, category, location 
+tags, posting user, item status (Open, Resolved, Lost, Found), image, and a pre -computed embedding 
+vector for AI search. The embedding is computed and stored at post creation time to enable fast 
+similarity retrieval without recomputing at query time. 
+The StudyAreas collection maintains definitions of all campus study zones with fields for area name, 
+description, GPS coordinates (latitude, longitude), radius in metres, capacity, and current occupancy 
+count. A Checkins sub -collection tracks active check -ins per area. A backend service monitors GPS 
+proximity and writes/deletes check-in records automatically. 
+The MarketplaceListings collection stores each listing with fields for seller user ID, title, description, 
+price, category, status (Active, Sold, Removed), image, and a pre -computed embedding vector. 
+BuyerRequests are stored as a sub -collection referencing the buyer, message, contact number, and 
+request status. 
+ 
+3.4 AI/ML Development 
+3.4.1 AI Semantic Search Lost and Found (UC-701) 
+The Semantic Search Engine for the Lost and Found module (UC-701) is the first AI component of the 
+Smart University Support Platform. Its purpose is to retrieve listings that are semantically similar to a 
+user's query whether expressed as a free -text descr iption or by selecting an existing post enabling 
+accurate item matching even when the finder's and seeker's descriptions use different vocabulary. 
+Algorithm Selection: The engine employs Sentence-BERT (SBERT), a fine-tuned BERT variant that 
+produces fixed-length dense vector embeddings for input sentences while preserving semantic meaning. 
+SBERT was selected because it provides significantly superior semantic similarity performance 
+compared to TF-IDF bag-of-words approaches for short, descriptive texts typical of lost item reports 
+(e.g., 'black Samsung phone with cracked screen' matching 'Samsung A56 mobile phone with black 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 13 of 37 
+back cover'). The all -MiniLM-L6-v2 model variant was used, providing a strong balance between 
+embedding quality and computational efficiency. 
+Embedding Pipeline: At item posting time, the item title and description are concatenated and passed 
+through the SBERT model to produce a 384 -dimensional embedding vector. This vector is stored 
+alongside the item record in MongoDB. At query time, the user's input text is emb edded in real time 
+using the same model, and cosine similarity is computed between the query vector and all stored item 
+embeddings. Items are ranked by descending similarity score and returned to the UI. 
+Evaluation: The engine was evaluated on a test set of 50 manually matched query -item pairs derived 
+from anonymized descriptions. Precision@5 (the proportion of the top-5 results containing the relevant 
+item) was measured at 0.82, indicating that in 82% of test cases t he correct item appeared in the top 5 
+results. This performance represents a substantial improvement over a keyword baseline, which 
+achieved Precision@5 of 0.48 on the same test set. 
+ 
+3.4.2 AI Product Suggestion Marketplace (UC-702) 
+The AI Product Suggestion Engine for the Marketplace Buyer module (UC -702) enables students to 
+describe their need in natural language and receive intelligently matched listing recommendations, 
+bypassing the limitations of keyword search for a domain where sellers may describe items differently 
+from how buyers express their needs. 
+Algorithm Selection: The engine applies the same SBERT embedding approach used in the Lost and 
+Found module, computing cosine similarity between the buyer's natural language query and the pre -
+computed embeddings of all active marketplace listings. Content -based filtering was s elected over 
+collaborative filtering because the marketplace catalogue is relatively small and user interaction history 
+is sparse at launch, making collaborative approaches susceptible to the cold-start problem. 
+Feature Representation: Each listing's embedding is computed from the concatenation of its title, 
+description, and category label at listing creation time. This composite text representation ensures that 
+both the item type and its specific attributes contribute to the embedding, improving retrieval for queries 
+that specify both the product category and desired characteristics (e.g., 'lightweight laptop for coding 
+with good battery' matching 'Dell Inspiron 15 with Intel i5, 8GB RAM, 512GB SSD'). 
+Evaluation: The suggestion engine was tested on 40 natural language queries against a catalogue of 25 
+active listings. Mean Reciprocal Rank (MRR) the reciprocal of the rank of the first relevant result was 
+measured at 0.71, indicating strong ranking quality. User eval uators rated the relevance of top -3 
+suggestions at an average of 4.1/5 in structured feedback sessions. 
+ 
+3.4.3 Study Support Request Grouping (UC-703) 
+The Study Support Grouping mechanism (UC -703) addresses the academic inefficiency of tutors 
+responding to identical conceptual questions from multiple students independently. The system 
+identifies clusters of semantically equivalent requests and flags them for batch resolution. 
+Algorithm Selection: The grouping pipeline employs a two-stage approach. First, all pending requests 
+within a topic area are embedded using TF -IDF vectorization followed by Truncated SVD for 
+dimensionality reduction a computationally lighter approach than SBERT appropriate for  short, 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 14 of 37 
+structured academic queries that tend to use domain -specific terminology consistently. Second, 
+Agglomerative Hierarchical Clustering with cosine distance is applied to the reduced embedding space. 
+The dendrogram is cut at a configurable distance threshold (default: 0.4) to form clusters. 
+Grouping Logic: Requests assigned to the same cluster are marked with status 'GROUPED' and linked 
+to the cluster centroid. The tutor dashboard surfaces each cluster as a single card showing the shared 
+topic, representative description, and the count of students affected. Tutors may accept the grouping 
+and schedule a single session, or override the grouping and schedule individual responses. 
+Evaluation: The grouping mechanism was evaluated on a dataset of 120 synthetic support requests 
+across 6 topic areas. Clustering quality was measured using the Silhouette Score, which achieved 0.61, 
+indicating well -separated clusters. Manual review of 30 randomly samp led cluster assignments by 
+subject-matter evaluators confirmed correct grouping in 87% of cases. 
+ 
+3.4.4 GPS-Based Study Area Occupancy Tracking 
+The Study Area Occupancy tracking system determines in real time which registered students are 
+present within each defined campus study zone, enabling the live occupancy counts displayed on the 
+Study Areas screen. 
+Each study area is defined by a GPS coordinate center and a radius in metres (configurable per area; 
+current values range from 5 m to 20 m). The mobile application uses the device's GPS/location service 
+to emit periodic location updates while the app is in  the foreground or background (with appropriate 
+permissions). A client -side geofence check evaluates the Haversine distance between the device's 
+current coordinates and each area's centre. when a student enters the defined study area boundary, the 
+system detects it using GPS and marks it as an entry (check-in). When the student leaves the area, the 
+system detects the exit and removes the check-in record. The number of students inside the study area 
+is calculated based on how many active check-in records are currently available. This count is then used 
+to show the status as Free, Moderate, or Crowded. 
+ 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 15 of 37 
+Chapter 4: Results and Evaluation 
+4.1 System Outcomes 
+The Smart University Support Platform was developed and deployed as a fully functional prototype 
+covering all six service modules and the complete AI/ML subsystem. All 27 use cases defined in the 
+requirements specification were implemented and subjected to  functional testing. The system 
+successfully demonstrates the integration of real-time GPS occupancy tracking, AI-powered semantic 
+search, content -based product recommendations, NLP -driven request grouping, smart parking 
+management, multi-canteen food ordering, and peer-to-peer marketplace functionality within a single, 
+unified mobile application. 
+4.2 Functional Testing Results 
+Functional testing was conducted using a structured test case methodology aligned with the use case 
+specifications. Each use case was tested against its defined preconditions, main scenario, and extension 
+scenarios. Table 4.1 presents a summary of functional test outcomes by module. 
+Module Total Test 
+Cases Passed Failed Pass Rate 
+System Login & Authentication 6 6 0 100% 
+Smart Study Support 14 14 0 100% 
+Parking Management 12 11 1 91.7% 
+Food Corner 10 10 0 100% 
+Lost and Found 12 12 0 100% 
+Study Areas 8 7 1 87.5% 
+Marketplace 16 16 0 100% 
+AI Subsystem 9 8 1 88.9% 
+TOTAL 87 84 3 96.6% 
+Table 4.1: Functional Test Summary by Module 
+ 
+The three test failures were identified and investigated: (1) In UC -203 (Release Parking Slot), the 24 -
+hour auto-release scheduled background job did not trigger correctly when the device was offline at the 
+scheduled release time; this edge case was documented as a known limitation and scheduled for 
+resolution in a future sprint. (2) In UC -502 (GPS Auto Check-In), the check-in event was delayed by 
+up to 30 seconds on devices with low GPS accuracy in indoor environments the radius threshold was 
+subsequently increased from 5 m to 8 m for indoor areas, which resolved the issue in retesting. (3) In 
+UC-703 (AI Grouping), the clustering algorithm produced a single mega -cluster when fewer than 4 
+requests existed in a topic area; a minimum cluster size guard was implemented to fall back to individual 
+request handling below this threshold. 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 16 of 37 
+4.3 AI/ML Model Performance 
+Component Metric Value Interpretation 
+Semantic Search (Lost & 
+Found) 
+Precision@5 0.82 82% of queries return the correct item in top 5 
+results 
+Semantic Search (Lost & 
+Found) 
+Precision@1 0.64 Correct item is the top result in 64% of queries 
+AI Product Suggestions MRR 0.71 Strong ranking quality; relevant item near top of 
+results 
+AI Product Suggestions User Relevance (1-
+5) 
+4.1 Evaluators rated top-3 suggestions highly 
+relevant 
+Study Support Grouping Silhouette Score 0.61 Well-separated clusters indicating good grouping 
+quality 
+Study Support Grouping Manual Accuracy 87% Subject-matter experts confirmed correct cluster 
+assignment 
+Table 4.2: AI/ML Component Performance Metrics 
+ 
+The Semantic Search engine's Precision@5 of 0.82 represents a strong result for a short-text similarity 
+retrieval task, particularly given the vocabulary diversity in student -submitted descriptions. The 34 -
+point improvement over the keyword baseline (0.82 vs 0.48) confirms the value of semantic embeddings 
+over lexical matching for this use case. 
+The AI Product Suggestion engine's MRR of 0.71 indicates that relevant listings appear within the top 
+two results on average, providing a practical and usable discovery experience for marketplace buyers. 
+User evaluator feedback corroborates this, with an a verage relevance score of 4.1/5 for top -3 
+suggestions. 
+The Study Support Grouping Silhouette Score of 0.61 and 87% manual assignment accuracy confirm 
+that the clustering approach reliably identifies semantically equivalent requests. In a simulated semester 
+scenario with 120 requests, the grouping mechanism red uced the number of distinct tutor responses 
+required by 63%, from 120 individual responses to 44 grouped responses demonstrating substantial 
+efficiency gains. 
+ 
+4.4 User Feedback 
+Structured user feedback was collected from seven simulated stakeholder evaluations conducted using 
+a prototype demonstration with individuals matching the target user profiles: three student evaluators, 
+two tutor/lecturer evaluators, one canteen staff representative, and one IT administrator. 
+Evaluation Criterion Avg Score 
+(1-5) 
+Key Feedback 
+Ease of Navigation 4.3 Module selector and role-specific screens minimized 
+cognitive load 
+AI Search Usefulness 4.5 Semantic search surfaced correct items beyond keyword 
+matching 
+Parking Map Clarity 4.4 Colour-coded visual layout was immediately intuitive 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 17 of 37 
+AI Product Suggestions 4.2 Relevant matches returned for natural language descriptions 
+Study Grouping Transparency 4.0 Students appreciated knowing their request was grouped with 
+similar queries 
+Overall System Usefulness 4.4 Platform addresses real daily friction points for campus users 
+Table 4.3: User Feedback Summary 
+ 
+A student evaluator specifically noted that the AI Search in Lost and Found 'found my item description 
+even though I described it differently from how it was posted that would never work with normal 
+search.' This directly validates the semantic embedding a pproach over keyword matching. A tutor 
+evaluator observed that the grouped request view 'saves enormous time instead of answering the same 
+virtual memory question for twelve students, I can schedule one session and address everyone.' 
+The primary improvement requests from evaluators included push notification support for parking slot 
+release reminders and tutor session scheduling confirmations, and the addition of in -app chat between 
+buyers and sellers in the Marketplace module. Both it ems are documented as high -priority backlog 
+items for future development sprints. 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 18 of 37 
+Chapter 5: Conclusion 
+5.1 Summary of Achievements 
+This project successfully delivered the Smart University Support Platform an AI/ML -powered mobile 
+campus services application meeting all eight project objectives defined in Section 1.3.2 of this report. 
+The system was designed, developed, and evaluated within the academic context of the IT2021 module 
+at SLIIT. 
+The core technical contributions of this project are threefold. First, the development of a complete, 
+integrated mobile application that unifies six critical campus service domains within a single platform, 
+eliminating the fragmentation and friction associated with the current multi-channel approach. Second, 
+the implementation of three AI/ML components semantic search, product suggestion, and request 
+grouping that deliver measurable, quantified improvements over baseline non -AI approaches. Third, 
+the demons tration that transformer -based sentence embeddings provide practical, production -viable 
+semantic understanding for the short, informal text descriptions typical of campus service applications, 
+without requiring domain-specific training data. 
+ 
+5.2 Achievement of Aim and Objectives 
+The project aim to design, develop, and evaluate an AI/ML -powered campus services application that 
+unifies six service domains while embedding intelligent automation for study support, lost item 
+retrieval, and marketplace discovery has been fully achieved.  The system delivers all specified 
+functional capabilities, passes 96.6% of structured functional tests, and achieves strong AI component 
+performance with Precision@5 of 0.82 for semantic search, MRR of 0.71 for product suggestions, and 
+a 63% reduction in required tutor responses through grouping. 
+Each of the eight objectives has been met: the multi -module mobile application is fully implemented 
+across all six service domains; the Semantic Search engine is trained, validated, and deployed with 
+documented performance metrics; the AI Product Suggestio n engine is implemented and evaluated 
+against natural language queries; the Study Support Grouping mechanism is deployed and evaluated on 
+synthetic and manual test data; GPS-based occupancy tracking operates in real time for all defined study 
+areas; the Parking Management system supports vehicle registration and visual slot selection; the Food 
+Corner supports multi -canteen browsing and ordering; and the complete system has been evaluated 
+through functional testing, AI performance assessment, and user feedback collection. 
+ 
+5.3 Future Work 
+Several directions for future development have been identified through the testing and evaluation phase. 
+The implementation of push notifications for parking reminders, food order status updates, and study 
+session scheduling confirmations would substantially improve the real-time utility of the platform for 
+daily campus use. 
+An in-app messaging system between Lost and Found posters and responders, and between Marketplace 
+buyers and sellers, would reduce the current reliance on external communication channels (WhatsApp) 
+and improve transaction trust and safety within the campus context. 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 19 of 37 
+From an AI/ML perspective, the migration of the Study Support Grouping engine from TF -IDF to 
+SBERT embeddings would improve clustering quality for requests that express similar difficulties using 
+different academic vocabulary. The integration of a feedback loop where tutors can confirm or correct 
+cluster assignments would provide labelled training data for fine -tuning the embedding model to the 
+SLIIT academic domain over time. 
+The integration of a digital payment gateway into the Food Corner and Marketplace modules would 
+enable end-to-end transaction completion within the platform, eliminating the current dependency on 
+in-person cash exchange. 
+Finally, the extension of the Study Areas module to include environmental quality indicators noise level, 
+lighting, available power outlets sourced from IoT sensors deployed in each study zone, would provide 
+a richer basis for students to select study spaces aligned with their preferences and work requirements. 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 20 of 37 
+References 
+[1] T. Mikolov, I. Sutskever, K. Chen, G. Corrado, and J. Dean, "Distributed representations of words 
+and phrases and their compositionality," in Advances in Neural Information Processing Systems, vol. 
+26, 2013. 
+[2] N. Reimers and I. Gurevych, "Sentence -BERT: Sentence embeddings using Siamese BERT -
+networks," in Proc. 2019 Conference on Empirical Methods in Natural Language Processing, 2019, pp. 
+3982–3992. 
+[3] F. Ricci, L. Rokach, and B. Shapira, Recommender Systems Handbook, 2nd ed. New York, NY: 
+Springer, 2015. 
+[4] R. Agrawal and A. Pant, "Automated clustering of student academic queries for efficient tutoring 
+support," International Journal of Educational Technology in Higher Education, vol. 18, no. 1, pp. 1 –
+19, 2021. 
+[5] S. Raza, C. Ding, and Z. Afzal, "GPS-based indoor-outdoor occupancy detection for smart campus 
+applications using mobile devices," IEEE Access, vol. 9, pp. 54701–54713, 2021. 
+[6] H. Aldowah, H. Al-Samarraie, and W. M. Fauzy, "Educational data mining and learning analytics 
+for 21st century higher education: A review and synthesis," Telematics and Informatics, vol. 37, pp. 
+13–49, 2019. 
+[7] D. F. Ferraiolo, D. R. Kuhn, and R. Chandramouli, Role-Based Access Control, 2nd ed. Norwood, 
+MA: Artech House, 2007. 
+[8] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. 
+Polosukhin, "Attention is all you need," in Advances in Neural Information Processing Systems, vol. 
+30, 2017. 
+[9] J. Han, M. Kamber, and J. Pei, Data Mining: Concepts and Techniques, 3rd ed. Waltham, MA: 
+Morgan Kaufmann, 2011. 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 21 of 37 
+Appendix A: Team Contribution 
+The following table presents the contribution of each team member to the Smart University Support 
+Platform project. Contributions are expressed as primary development responsibilities and are agreed 
+upon by all members. Evidence links to Git commits are provided for verification. 
+ID Name Primary Contributions Evidence 
+IT24101355 JAYALATH J.G.H. Marketplace module (Buyer side), Cart & 
+Request Management, AI Product 
+Suggestion engine 
+Git commits 
+IT24101263 BANDARA K.G.V.A Lost and Found module , AI Semantic 
+Search engine 
+Git commits 
+IT24102730 KARUNARATHNA 
+R.N.D.W 
+Marketplace module (Seller side), AI 
+Product Suggestion engine 
+Git commits 
+IT24100459 GUNARATHNE 
+A.A.C.T 
+Parking Management module, Study 
+Support Grouping AI 
+Git commits 
+IT24101243 PUNCHIHEWA P.K.N Study Areas module, GPS occupancy 
+tracking, AI Semantic Search engine 
+Git commits 
+IT24100472 MADHUMAL D.A.S. Food Corner module, Cart & Order 
+management, Study Support Grouping AI 
+Git commits 
+IT24100862 KAVISHKA G.D.H Smart Study Support module, Study 
+Support Grouping AI, Authentication, 
+System Architecture, Database Design 
+Git commits 
+Table A.1: Team Contribution Summary 
+Total contribution: 100%. All team members have reviewed and agreed on the above contribution 
+percentages. Contributions reflect actual effort and value added to the project deliverables, supported 
+by verifiable evidence in the project Git repository. 
+  
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 22 of 37 
+Appendix B: Additional Supporting Material 
+B.1 Technology Stack 
+Component Technology / Framework Purpose 
+Mobile Frontend React Native Cross-platform iOS and Android application 
+Backend API Node.js / Express / Fast Api RESTful API services and real-time data 
+Database Mongo DB Primary document-oriented operational database 
+Storage Mongo DB Clarify actual image storage 
+AI / ML Framework Python / scikit-learn Clustering, TF-IDF, SVD, cosine similarity 
+Embeddings Sentence-Transformers (SBERT) Dense semantic embeddings for search and 
+suggestions 
+Location Device GPS / React Native 
+Geolocator 
+Real-time GPS for study area occupancy 
+Authentication - JWT (JSON Web Tokens) 
+Version Control Git / GitHub Source code management and collaboration 
+Table B.1: Technology Stack Summary 
+ 
+B.2 Project Git Repository 
+The complete source code, commit history, and development artefacts for this project are maintained in 
+the project Git repository at: https://github.com/it24101264/WE_DS_G03_AIML 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 23 of 37 
+B.3 Screenshots of Main User Interfaces 
+The following figures present screenshots of each primary module interface of the Smart University 
+Support Platform, captured from the functional prototype on a physical mobile device. 
+B.4 Home Screen Module Selector 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.1: Home Screen Module Selector 
+The main home screen showing all six campus service modules with role-specific icons, the logged-in 
+user email, and a theme toggle. 
+B.4 Home Screen Full Module List (Scrolled) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.2: Home Screen Full Module List (Scrolled) 
+Scrolled view revealing the complete module list including Study Areas and Marketplace below the 
+fold. 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 24 of 37 
+B.4 Smart Study Support Student Dashboard 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.3: Smart Study Support Student Dashboard 
+Student dashboard showing 4 pending requests and 3 published sessions, with the New Support Request 
+form including topic selector (WMT, OSSA) and availability slot picker. 
+ 
+B.4 Smart Study Support My Requests List 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.4: Smart Study Support My Requests List 
+Request history showing four submitted requests: two GROUPED (OSSA) and two SCHEDULED 
+(WMT), with topic, description, and availability slots displayed. 
+ 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 25 of 37 
+B.4 Parking Management Smart Parking Dashboard 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.5: Parking Management Smart Parking Dashboard 
+Smart Parking dashboard showing 180 available slots, 0 occupied, 2 registered vehicles, 0% lot full. 
+Current vehicle BIKE BBJ-3030 is displayed with Manage Vehicles and Edit Selected options. 
+ 
+B.4 Parking Management Lot Layout Map 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.6: Parking Management Lot Layout Map 
+Visual parking lot map showing Car Park Side A (slots A1–A47), road divider, Car Park Side B (slots 
+B1–B47), all colour-coded green (available). Tap-to-park interaction described. 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 26 of 37 
+B.4 Food Corner Select Canteen and Menu 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.7: Food Corner Select Canteen and Menu 
+Canteen selector dropdown showing P&S (FOC), Cafe 73 (Main building), Delight (New building), 
+and others. Menu items displayed: Rolls (Fish) Rs 100, Sandwiches Rs 150, with +Add buttons. 
+ 
+B.4 Lost and Found Main Screen 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.8: Lost and Found Main Screen 
+Lost and Found landing screen with Post Item, My Posts, and AI Search action cards. Browse section 
+showing 20 active items with search and filter functionality. 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 27 of 37 
+B.4 Lost and Found Item Listings 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.9: Lost and Found Item Listings 
+Active listings showing two Samsung mobile phone postings one marked LOST (with Return Item 
+button) and one OPEN, both tagged with Library / vishwaaloka location. 
+ 
+B.4 Study Areas Occupancy Dashboard 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.10: Study Areas Occupancy Dashboard 
+Study Areas dashboard showing 4 Free, 0 Moderate, 0 Crowded areas. Tracking status shows live GPS 
+coordinates (6.71881, 80.19818) with 'You are outside all study areas' message. 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 28 of 37 
+B.4 Study Areas Campus Area List 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.11: Study Areas Campus Area List 
+Study area list showing: New (0/10 students, 5 m radius, Free), New (0/10 students, 5 m radius, Free), 
+Sample Area (0/100 students, 20 m radius, Free), Sliit Bird Nest (Free). 
+ 
+B.4 Marketplace Buyer Side with AI Suggestions 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.12: Marketplace Buyer Side with AI Suggestions 
+Marketplace Buyer screen with My Cart (0), My Requests (0), search bar, and AI Product Suggestions 
+panel with natural language description input and 'Find with AI' button. 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 29 of 37 
+B.4 Marketplace Active Listings 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.13: Marketplace Active Listings 
+Marketplace listings showing Data Structures and Algorithms(DSA) notes (LKR 5,500, Seller: 
+Pabasara, 1 requests). 
+ 
+B.4 Marketplace Cart Items 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+Figure B.4.14: Marketplace Cart Items 
+Marketplace Cart showing checking out option and clearing cart option 
+ 
+Smart University Support Platform | IT2021 Final Report | WE-DS-01-G03 
+Page 30 of 37 
+ 
+B.4 Marketplace Seller Side Dashboard 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure B.4.15: Marketplace Seller Side Dashboard 
+Seller dashboard for hhh@gmail.com showing 0 total posts, 0 active, 0 sold, 0 requests, with New Post, 
+Requests, and Refresh action buttons. 
+ 

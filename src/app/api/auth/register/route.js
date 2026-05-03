@@ -5,12 +5,22 @@ import { db } from "@/lib/db";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET is missing in .env.local");
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
 }
 
 export async function POST(req) {
   try {
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET is missing in .env.local");
+    }
+
     const body = await req.json();
     const name = (body?.name || "").trim();
     const email = (body?.email || "").trim().toLowerCase();
@@ -20,14 +30,14 @@ export async function POST(req) {
     if (!name || !email || !password) {
       return NextResponse.json(
         { ok: false, error: "Name, email, and password are required." },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
     if (password.length < 6) {
       return NextResponse.json(
         { ok: false, error: "Password must be at least 6 characters." },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -40,7 +50,7 @@ export async function POST(req) {
     if (existing.length > 0) {
       return NextResponse.json(
         { ok: false, error: "Email already registered." },
-        { status: 409 }
+        { status: 409, headers: corsHeaders }
       );
     }
 
@@ -61,13 +71,13 @@ export async function POST(req) {
 
     return NextResponse.json(
       { ok: true, data: { token, role: 'customer', userId: result.insertId } },
-      { status: 201 }
+      { status: 201, headers: corsHeaders }
     );
   } catch (err) {
     console.error("REGISTER_ERROR:", err);
     return NextResponse.json(
       { ok: false, error: "Server error during registration." },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

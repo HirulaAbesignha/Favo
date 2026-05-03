@@ -1,0 +1,425 @@
+Department of IT 
+Faculty of Computing 
+Sri Lanka Institute of Information 
+Technology 
+ 
+ 
+ 
+   
+ 
+IT2150: IT Project 
+2nd Year, Semester 2, 2026 
+Assignment Title  Assignment 05 – Final Report Assignment  
+Learning outcomes covered  LO2: Implement quality assurance and communication 
+management principles within software projects. 
+ 
+ LO4: Monitor project progress using standard project 
+management tools and techniques.  
+ 
+LO5: Collaborate within a multidisciplinary and 
+multicultural team to deliver project outcomes that 
+promote equality, diversity, and inclusion. 
+ 
+Assignment Mode  Report (Document) 
+Maximum Marks  10 
+Contribution to the Final Grade  10% 
+Date published  Week 07 
+Deadline for submissions  Week 10 
+Mode of Submission  Pdf  
+ 
+Assignment description 
+ 
+This assignment evaluates students’ ability to document and present the work. The 
+report should clearly reflect the development process, technical understanding, and 
+achievement of project objectives. 
+The report must be structured into three sections: 
+1. Main  section (most significant component) 
+2. Pre-Body Section 
+3. Post-Body Section 
+The Main Body (20–30 pages) is the most important part of the report and will carry the 
+majority of the marks. Students are expected to provide sufficient depth of explanation, 
+supported by appropriate diagrams and evidence. 
+ 
+ 
+ 
+   
+ 
+1. Main Section 
+The content must be organised according to the chapters listed below. Students may add 
+relevant sub-sections where necessary. All explanations must be clear, structured, and 
+supported with appropriate diagrams. 
+Chapter 1: Introduction 
+• Problem and motivation 
+• Literature review 
+• Aim and objectives 
+• Solution overview (must include a clickable link to the Git repository) 
+The introduction should clearly establish the context of the project and demonstrate 
+understanding of the problem domain. 
+Chapter 2: Requirement Analysis 
+• Stakeholder analysis 
+• Feasibility and SWOT analysis 
+• Requirements modelling 
+This chapter should clearly explain how system requirements were identified, analyzed, 
+and structured. 
+Chapter 3: Design and Development 
+This chapter must present the system’s design and development approach in a structured 
+and well-explained manner. Including diagrams without explanation will not be sufficient. 
+• System/component architecture diagrams 
+• Process or workflow diagrams 
+• Database design diagrams (e.g., ER diagrams) 
+• Development-related diagrams or models 
+Chapter 4: Results and Evaluation 
+• Clearly state the system outcomes. 
+• Explain what the system does and how well it performs. 
+ 
+ 
+   
+ 
+o Include supporting evidence such as Test results, Performance metrics,User 
+feedback, Expert evaluations 
+Chapter 5: Conclusion 
+• Summarise how the objectives have been met. 
+• Explain how the overall project aim has been achieved. 
+• Provide a concise summary of key achievements. 
+References 
+• Include all references cited in the main text. 
+• A consistent academic referencing style must be used throughout. 
+• Students are strongly encouraged to use a referencing tool to manage citations and 
+generate the reference list. 
+ 
+2. Pre-Body Section 
+The pre-body section must appear before the main body in the final submission and 
+include the following components in the order listed: 
+1. Title Page (Include the title, the ITP group number, campus, names and ID numbers 
+and date of submission) 
+2. Declaration (Include names, IDs and signatures of members) 
+3. Abstract (Maximum one page) 
+4. Acknowledgement (Maximum one page) 
+5. Table of Contents (Automatically generated using a word processing tool) 
+6. List of Tables (Automatically generated) 
+7. List of Figures (Automatically generated) 
+8. List of Abbreviations (Listed alphabetically) 
+3. Post-Body Section 
+Appendix A (1–2 pages) 
+A table clearly indicating the contribution made by each team member.  
+ 
+ 
+   
+ 
+• Ensure that each member agrees on the contribution percentages. 
+• Contributions should reflect actual effort and value added, not just time spent. 
+• Link contributions to work evidence, e.g., Git commits, diagrams produced, and 
+testing performed. 
+Appendix B (If applicable) 
+Additional supporting material that is not essential to the main discussion. Core content 
+should remain within the main chapters. Include screenshots of main user interfaces or 
+extended material. 
+All appendices must be clearly labelled and referred to within the main body of the report. 
+ 
+ 
+ 
+Formatting guidelines:  
+i. General formatting Page size: A4  
+ii. Margins: default margins  
+iii. Normal font: Times New Roman  
+iv. Normal font size: 11  
+v. Line spacing: Multiple at 1.2  
+vi. Paragraph alignment: Justify  
+vii. Page numbering:  
+• Main section: Include page numbering from the first page of the first chapter  
+(introduction). The page numbering should start from 1(Arabic 1).  
+• Pre- body section: Roman numerals (i, ii, iii, iv, …) 
+viii. All the figures and tables should use proper captions. Use specific names rather than 
+generic names. For example, use “Sequence diagram of login process” instead of 
+“Sequence diagram” .  
+ix. Figures and tables should be numbered based on chapter number, starting from 1 in 
+each chapter. For example, the number of the first figure in chapter 3 should be “Figure 
+3.1:”.  
+ 
+ 
+   
+ 
+x. The text size in the figures is close to the paragraph text size, thus, they are readable.  
+xi. Headings (Use the styles in MS Word) Section/Chapter heading (Heading 1): 16, Bold, 
+Center, Lower border  
+xii. Sub-section level 1 headings (Heading 2): 12, Bold, Underlined, left aligned  
+xiii. Sub-section level 2 headings (Heading 3): 11, Bold, Underlined, left aligned  
+ 
+ 
+ 
+Marking Scheme 
+ 
+Criteria Excellent (80–
+100%) 
+Very Good 
+(70–79%) 
+Good (60–
+69%) 
+Satisfactory 
+(50–59%) Poor (<50%) 
+Chapter 1: 
+Introduction 
+and problem 
+definition 
+20% 
+All sections are 
+complete, clear , 
+coherent, and 
+demonstrate 
+strong 
+understanding; 
+problem, 
+motivation, and 
+objectives are 
+fully defined; 
+Git repo 
+provides good 
+evidence 
+Mostly 
+complete and 
+coherent; 
+minor gaps in 
+clarity or 
+missing minor 
+details; Git 
+repo link 
+provides good 
+evidence 
+Adequate 
+coverage of 
+sections; some 
+gaps or lack of 
+clarity; Git repo 
+link provides 
+sufficient work 
+Basic coverage; 
+lacks depth or 
+clarity; Git repo 
+link functional 
+Poor or missing 
+sections; 
+background, 
+problem, or 
+objectives 
+unclear; no Git 
+repo link or non-
+functional 
+Chapter 2: 
+Requirements  
+20% 
+Comprehensive 
+analysis, and 
+modeling; 
+clearly 
+presented and 
+justified; 
+stakeholder and 
+SWOT analysis 
+complete 
+Mostly 
+complete 
+requirements, 
+SWOT analysis 
+with minor 
+gaps; clear 
+presentation 
+Adequate 
+coverage of 
+requirements; 
+minor errors or 
+inconsistencies 
+Minimal 
+requirements 
+analysis; 
+limited 
+justification or 
+modeling 
+Missing or poorly 
+developed 
+requirements 
+analysis 
+ 
+ 
+   
+ 
+Chapter 3: 
+Design & 
+Development 
+25% 
+Well-structured, 
+detailed 
+explanation of 
+design and 
+development; all 
+diagrams 
+accurate, clearly 
+labeled, and fully 
+explained; 
+strong alignment 
+with 
+requirements 
+Good design; 
+diagrams 
+mostly 
+accurate and 
+explained; 
+minor gaps 
+Adequate 
+diagrams and 
+explanations; 
+some clarity 
+issues 
+Basic design 
+coverage; 
+diagrams 
+missing or 
+incomplete 
+Poor or missing 
+design; diagrams 
+absent or 
+incorrect 
+Chapter 4: 
+Results & 
+Evaluation 
+20% 
+Product 
+evaluated 
+thoroughly with 
+clearly 
+supported 
+evidence 
+Product 
+evaluated well, 
+with reasoning 
+Some parts of 
+the product is 
+evaluated 
+Attempted to 
+evaluate the 
+some parts of 
+the product 
+Evaluation 
+missing or 
+unsupported by 
+results/feedback 
+Chapter 5: 
+Conclusion 
+ 5% 
+Objectives and 
+aim clearly 
+summarized; 
+evidence that all 
+objectives met 
+and aim 
+achieved 
+Mostly clear 
+conclusion: 
+minor gaps in 
+linking 
+objectives to 
+results 
+Adequate 
+conclusion: 
+some objectives 
+or aim partially 
+addressed 
+Basic 
+conclusion: 
+weak linkage to 
+objectives or 
+aim 
+Poor or missing 
+conclusion; 
+objectives/aim 
+not addressed 
+References 
+5% 
+References 
+comprehensive, 
+accurate, 
+formatted 
+correctly; used a 
+referencing tool 
+Good 
+references; 
+minor 
+formatting 
+issues 
+Adequate 
+references; 
+some missing 
+details or 
+inconsistencies 
+Limited 
+references; 
+major 
+formatting 
+errors 
+References 
+missing or poorly 
+formatted 
+Professionalism 
+& Collaboration 
+5% 
+Report 
+demonstrates 
+professionalism 
+in presentation, 
+writing, and 
+collaboration; 
+clear evidence of 
+equitable 
+Mostly 
+professional 
+report; good 
+collaboration; 
+minor gaps in 
+inclusivity or 
+clarity 
+Adequate 
+professionalism 
+and teamwork; 
+some inclusivity 
+issues or 
+inconsistencies 
+Limited 
+professionalism 
+or 
+collaboration; 
+minimal 
+evidence of 
+teamwork 
+Unprofessional 
+report; no 
+evidence of 
+teamwork or 
+inclusive 
+practices 
+ 
+ 
+   
+ 
+teamwork and 
+practices 
+  
+  
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
